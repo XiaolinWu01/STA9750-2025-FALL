@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+      - Xiaolin_Wu_Resume.pdf
 
 website:
   title: "STA 9750 Submission Material"
