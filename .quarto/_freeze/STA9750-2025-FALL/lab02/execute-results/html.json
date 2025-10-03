@@ -1,0 +1,17 @@
+{
+  "hash": "d0a9b5991d261d02b4b0b37015e27968",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Lab 02 Practice\"\nauthor: \"Xiaolin Wu\"\nformat: revealjs\neditor: visual\n---\n\n# Annual Houses Sold in Houston, TX\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n\n```{.r .cell-code}\n#| echo: false\nif(!require(\"tidyverse\")) install.packages(\"tidyverse\")\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: tidyverse\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors\n```\n\n\n:::\n\n```{.r .cell-code}\nlibrary(tidyverse)\ntxhousing |> \n  filter(city==\"Houston\") |> \n  group_by(year) |> \n  summarize(sales=sum(sales)) |> \n  ggplot(aes(x=year, y=sales)) + \n    geom_line() + \n    ggtitle(\"Annual Houses Sold in Houston, TX\")\n```\n\n::: {.cell-output-display}\n![](lab02_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n# Average Price of Houses Sold in Texas by Month\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](lab02_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\n# Average Price of Houses Sold in 2015 by City in Texas\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](lab02_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n## NEW ELEMENT — Two Columns\n\n::::: columns\n::: column\n### Notes\n\n-   Data: `txhousing`\n-   City: Houston\n-   Metric: yearly `sales`\n:::\n\n::: column\n\n::: {.cell tbl-cap='First 6 rows'}\n::: {.cell-output .cell-output-stdout}\n\n```\n# A tibble: 6 × 3\n   year sales avg_price\n  <int> <dbl>     <dbl>\n1  2000 52459   153285.\n2  2001 53856   158590.\n3  2002 56563   167714.\n4  2003 60732   171537.\n5  2004 66979   175822.\n6  2005 72800   185497.\n```\n\n\n:::\n:::\n\n:::\n:::::\n",
+    "supporting": [
+      "lab02_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
