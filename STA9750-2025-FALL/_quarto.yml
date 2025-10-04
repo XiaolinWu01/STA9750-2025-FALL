@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+      - Xiaolin_Wu_Resume.pdf
+
+website:
+  title: "STA 9750 Submission Material"
+  description: "Course Projects for STA 9750 at Baruch College"
+  site-url: "https://XiaolinWu01.github.io/STA9750-2025-FALL/"
+  navbar:
+    background: primary
+    search: true
+ 
+format:
+  html:
+    theme: minty
+    toc: true
+    toc-title: "On This Page"
+    code-fold: true
+    code-copy: true
+
+editor:
+  mode: source

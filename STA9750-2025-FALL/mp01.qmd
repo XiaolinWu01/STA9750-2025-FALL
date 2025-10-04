@@ -1,0 +1,283 @@
+---
+title: "MP01 – Netflix"
+author: "Xiaolin Wu"
+format:
+  html:
+    theme: journal
+    toc: true
+    code-fold: true
+    code-copy: true
+    title-block-style: default
+    title-block-banner: "#e50914"   
+    title-block-banner-color: white
+editor: visual
+---
+
+```{r}
+if(!dir.exists(file.path("data", "mp01"))){
+    dir.create(file.path("data", "mp01"), showWarnings=FALSE, recursive=TRUE)
+}
+
+GLOBAL_TOP_10_FILENAME <- file.path("data", "mp01", "global_top10_alltime.csv")
+
+if(!file.exists(GLOBAL_TOP_10_FILENAME)){
+    download.file("https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv", 
+                  destfile=GLOBAL_TOP_10_FILENAME)
+}
+
+COUNTRY_TOP_10_FILENAME <- file.path("data", "mp01", "country_top10_alltime.csv")
+
+if(!file.exists(COUNTRY_TOP_10_FILENAME)){
+    download.file("https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv", 
+                  destfile=COUNTRY_TOP_10_FILENAME)
+}
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(janitor)
+
+global_path  <- "data/mp01/global_top10_alltime.csv"
+country_path <- "data/mp01/country_top10_alltime.csv"
+
+global_df  <- read_tsv(global_path,  show_col_types = FALSE) |> clean_names()
+country_df <- read_tsv(country_path, show_col_types = FALSE) |> clean_names()
+
+cat("Global rows:", nrow(global_df), "  Country rows:", nrow(country_df), "\n")
+dplyr::glimpse(global_df)
+```
+
+```{r}
+if(!require("tidyverse")) install.packages("tidyverse")
+library(readr)
+library(dplyr)
+```
+
+```{r}
+# Import and clean GLOBAL_TOP_10
+GLOBAL_TOP_10 <- read_tsv(GLOBAL_TOP_10_FILENAME, show_col_types = FALSE) %>%
+  mutate(season_title = if_else(season_title == "N/A", NA_character_, season_title))
+
+# Import and clean COUNTRY_TOP_10
+COUNTRY_TOP_10 <- read_tsv(COUNTRY_TOP_10_FILENAME, na = "N/A", show_col_types = FALSE)
+
+# Quick checks
+glimpse(GLOBAL_TOP_10)
+glimpse(COUNTRY_TOP_10)
+
+```
+
+## Initial Data Exploration
+
+In this section, we perform a first exploration of the global Netflix Top 10 dataset. Our goal is to understand the size of the dataset, the distribution of categories, and the diversity of programming represented.
+
+```{r}
+library(dplyr)
+library(gt)
+
+# total
+total_rows <- nrow(GLOBAL_TOP_10)
+unique_shows <- n_distinct(GLOBAL_TOP_10$show_title)
+
+# category
+category_summary <- GLOBAL_TOP_10 %>%
+  count(category, sort = TRUE)
+
+category_summary %>%
+  gt() %>%
+  tab_header(
+    title = "Table 1: Number of Records by Category in Global Top 10")
+    category_summary %>%
+  gt() %>%
+  tab_style(
+    style = cell_fill(color = "#ffe5e5"),
+    locations = cells_body(
+      rows = category == "TV (English)"
+    )
+  )
+
+```
+
+## ***Interpretation:*** 
+
+The global dataset contains r total_rows weekly records, covering r unique_shows unique shows. As shown in Table 1, the four categories — English and non-English films and TV — are evenly represented, each with 2,220 entries. This balance is a feature of the dataset’s construction, ensuring comparability across categories. In practice, however, actual viewer attention may be concentrated in a smaller number of titles.
+
+```{r}
+stranger_things <- GLOBAL_TOP_10 %>%
+  filter(grepl("Stranger Things", show_title))
+
+total_hours <- sum(stranger_things$weekly_hours_viewed, na.rm = TRUE)
+
+weeks_in_top10 <- n_distinct(stranger_things$week)
+
+st_countries <- COUNTRY_TOP_10 %>%
+  filter(grepl("Stranger Things", show_title)) %>%
+  summarise(num_countries = n_distinct(country_name)) %>%
+  pull(num_countries)
+
+top_english_tv <- GLOBAL_TOP_10 %>%
+  filter(category == "TV (English)") %>%
+  group_by(show_title) %>%
+  summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE)) %>%
+  arrange(desc(total_hours)) %>%
+  slice(1:5)
+
+top_english_tv
+
+```
+
+## **Press Release 1: Stranger Things Season 5**
+
+### **Netflix’s Global Phenomenon Returns: Stranger Things Prepares for a Historic Final Season**
+
+The countdown is on—*Stranger Things* will return in late 2025 with its fifth and final season, marking the end of a show that has defined a generation of Netflix storytelling. As the series prepares to close its chapter, Netflix looks back at the extraordinary success that made Hawkins, Indiana, and the Upside Down household names around the world.
+
+Since its launch in 2016, *Stranger Things* has become a cultural phenomenon and one of Netflix’s flagship originals. Across four groundbreaking seasons, the series has accumulated more than **r scales::comma(total_hours) hours of global viewership**, securing its place among the most-watched English-language shows on the platform. These numbers reflect not just statistics, but years of thrilling storytelling enjoyed by millions of fans across continents.
+
+What sets *Stranger Things* apart is its ability to hold audience attention over time. The series has remained in the **Top 10 for more than r weeks_in_top10 weeks**, demonstrating a remarkable staying power that few titles can match. Week after week, season after season, the adventures of Eleven and her friends have kept viewers eagerly returning.
+
+The show’s reach has also been distinctly international. Appearing in the Top 10 across **r st_countries countries**, *Stranger Things* has proven that a story born in small-town America resonates with audiences from Buenos Aires to Berlin, from Seoul to Sydney. This global impact underscores Netflix’s mission to deliver entertainment without borders.
+
+When compared to other top English-language TV series, *Stranger Things* consistently ranks near the top in total hours viewed. While acclaimed titles such as r top_english_tv\$show_title\[2\] and r top_english_tv\$show_title\[3\] have drawn large audiences, *Stranger Things* continues to outpace many of its peers, highlighting its singular role as a genre-defining show that blends supernatural thrills with heartfelt nostalgia.
+
+As the final season approaches, Netflix is excited to deliver a powerful conclusion to this global success story. With its unique mix of suspense, 1980s nostalgia, and unforgettable characters, *Stranger Things* is ready to leave an indelible mark on television history one last time.
+
+```{r}
+# Stranger Things trend
+library(ggplot2)
+
+st_data <- GLOBAL_TOP_10 %>%
+  filter(grepl("Stranger Things", show_title)) %>%
+  group_by(week) %>%
+  summarise(weekly_hours = sum(weekly_hours_viewed, na.rm = TRUE))
+
+ggplot(st_data, aes(x = week, y = weekly_hours/1e6)) +
+  geom_line(color = "#e50914", size = 1.2) +
+  geom_point(color = "#e50914") +
+  labs(
+    title = "Stranger Things Global Viewership Trend",
+    x = "Week",
+    y = "Weekly Hours Viewed (Millions)"
+  ) +
+  theme_minimal()
+
+# India data preparation
+india_top <- COUNTRY_TOP_10 %>%
+  filter(country_name == "India")
+
+india_hours <- GLOBAL_TOP_10 %>%
+  filter(show_title %in% india_top$show_title) %>%
+  summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE)) %>%
+  pull(total_hours)
+
+india_shows <- n_distinct(india_top$show_title)
+
+us_top <- COUNTRY_TOP_10 %>%
+  filter(country_name == "United States")
+
+india_unique <- setdiff(india_top$show_title, us_top$show_title)
+ # hit program
+ 
+india_hours
+india_shows
+head(india_unique, 10)
+
+```
+
+## **Press Release 2: Netflix’s Blockbuster Growth in India**
+
+### **Netflix Celebrates Record-Breaking Hindi Hits and Rapid Subscriber Growth in the World’s Largest Market**
+
+India, the world’s most populous nation, has become one of Netflix’s fastest-growing regions. With the surge of high-quality Hindi-language films and TV series, Netflix has established itself as a premier destination for Indian entertainment.
+
+Over the past year, Hindi titles available on Netflix have generated more than **r scales::comma(india_hours) hours of global viewing**, showcasing the extraordinary appetite of Indian audiences for local-language content. In total, Indian subscribers have pushed **r india_shows unique shows and films** into the weekly Top 10 rankings.
+
+What sets India apart is the strength of titles that resonate specifically with local viewers. Shows such as *r india_unique\[1\]* and *r india_unique\[2\]* have dominated the Top 10 in India even when they did not chart in the United States. This highlights Netflix’s ability to foster regional hits that speak directly to Indian culture and tastes.
+
+Taken together, these viewing patterns suggest rapid subscriber growth in India. If Hindi-language viewership is treated as a proxy for the size of the Indian customer base, Netflix is now engaging millions of households across the country—making India one of the platform’s most dynamic growth markets.
+
+Looking ahead, Netflix will continue to invest in Hindi-language originals and expand its partnerships with Indian storytellers. By delivering compelling local hits alongside global blockbusters, Netflix is committed to ensuring that Indian audiences feel at home on the world’s leading streaming platform.
+
+```{r}
+# Top 10 Netflix shows in India by number of weeks in Top 10
+india_top10 <- COUNTRY_TOP_10 %>%
+  filter(country_name == "India") %>%
+  group_by(show_title) %>%
+  summarise(weeks_in_top10 = n_distinct(week)) %>%
+  arrange(desc(weeks_in_top10)) %>%
+  slice(1:10)
+
+library(ggplot2)
+
+ggplot(
+  india_top10,                                    
+  aes(x = reorder(show_title, weeks_in_top10),   
+      y = weeks_in_top10)
+) +
+  geom_col(fill = "#E50914") +
+  coord_flip() +                                 
+  theme_minimal() +
+  labs(
+    title = "Top 10 Netflix Shows in India by Weeks in Top 10",
+    x = "Show Title",
+    y = "Weeks in Top 10"
+  )
+
+```
+
+```{r}
+# Non-English TV shows in GLOBAL dataset
+non_english_tv <- GLOBAL_TOP_10 %>%
+  filter(category == "TV (Non-English)")
+
+# total hour
+non_eng_hours <- non_english_tv %>%
+  summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE)) %>%
+  pull(total_hours)
+
+# TV amount
+non_eng_shows <- n_distinct(non_english_tv$show_title)
+
+# hit non-english tv shows
+top_non_eng <- non_english_tv %>%
+  group_by(show_title) %>%
+  summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE),
+            total_weeks = n_distinct(week)) %>%
+  arrange(desc(total_hours)) %>%
+  slice(1:5)
+
+```
+
+## **Press Release 3: Netflix’s Global Non-English TV Success**
+
+### **From Seoul to Madrid: Non-English Originals Reshape Netflix’s Global Top 10**
+
+Netflix today announced the remarkable worldwide success of its Non-English language TV series, which continue to capture audiences and fuel subscriber growth around the globe.
+
+Across all markets, Non-English TV titles have generated more than **r scales::comma(non_eng_hours) hours of global viewing**, cementing their role as a cornerstone of Netflix’s content strategy. In total, over **r non_eng_shows unique series** have reached the Top 10, demonstrating both the popularity and diversity of storytelling outside the English-speaking world.
+
+Breakout hits like *r top_non_eng\$show_title\[1\]* and *r top_non_eng\$show_title\[2\]* have dominated the charts, proving that compelling stories transcend borders. These titles have not only topped the rankings in their home countries but also reached millions of households across dozens of international markets.
+
+The rise of Non-English originals reflects a major shift in global entertainment: audiences everywhere are embracing local stories with universal appeal. For Netflix, this success highlights the value of continued investment in regional productions—from Korean dramas to Spanish thrillers—that can resonate far beyond their country of origin.
+
+As Netflix expands its portfolio of Non-English hits, the company is committed to delivering more stories that connect with global audiences, no matter the language.
+
+```{r}
+# Compare English vs Non-English TV
+tv_compare <- GLOBAL_TOP_10 %>%
+  filter(category %in% c("TV (English)", "TV (Non-English)")) %>%
+  group_by(category) %>%
+  summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE))
+
+ggplot(tv_compare, aes(x = category, y = total_hours/1e9, fill = category)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c("#e50914", "#221f1f")) +
+  labs(
+    title = "Global Viewership: English vs Non-English TV",
+    x = "",
+    y = "Total Hours Viewed (Billions)"
+  ) +
+  theme_minimal()
+
+```

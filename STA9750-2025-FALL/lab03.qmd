@@ -1,0 +1,146 @@
+---
+title: "STA 9750 – Lab 03"
+author: "Xiaolin Wu"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+execute:
+  echo: true      # 调试时显示代码；提交前如需隐藏可改为 false
+  warning: false
+  message: false
+---
+
+# Welcome!
+
+This is the Lab 03 report covering Vectors, Review, Packages, Variables, Comments, Vector Types, Functions, Control Flow, and Programming Exercises.
+
+---
+
+# Vectors in R
+
+## Creating vectors
+```{r}
+x <- c(1, 3, 5, 7)
+y <- 2:6
+z <- seq(0, 1, by = 0.2)
+x; y; z
+```
+
+```{r}
+x + 1
+x * 2
+x + c(1, 2)   # Recycling rule
+```
+
+```{r}
+a <- 5; b <- 2
+a^b; a %% b; a %/% b
+```
+
+```{r}
+ls()
+rm(b); ls()
+# Use ?mean in the Console to open help; avoid putting ? in a rendered document.
+```
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+
+```{r}
+# This can be slow; comment it out if your network is slow.
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+NROW(available.packages())
+```
+
+```{r}
+head(flights, 10)
+```
+
+```{r}
+my_apples <- 5
+my_oranges <- 6
+my_fruit <- my_apples + my_oranges
+my_fruit
+```
+
+```{r}
+# This is a comment
+x <- 1  # Inline comment
+
+# This line will not run:
+# y <- 2
+```
+
+```{r}
+num  <- c(1.2, 3.5)
+int  <- c(1L, 2L, 3L)
+chr  <- c("a", "b")
+lgc  <- c(TRUE, FALSE, NA)
+
+typeof(num); typeof(int); typeof(chr); typeof(lgc)
+class(num)
+
+as.numeric(chr)   # Conversion fails, produces NA
+is.na(lgc)
+```
+
+```{r}
+x <- c(1, 2, NA, 4)
+mean(x, na.rm = TRUE)
+```
+
+```{r}
+fahrenheit_to_celsius <- function(f) {
+  (f - 32) * 5/9
+}
+fahrenheit_to_celsius(77)
+```
+
+```{r}
+n <- 5
+if (n %% 2 == 0) {
+  msg <- "even"
+} else {
+  msg <- "odd"
+}
+msg
+```
+
+```{r}
+out <- c()
+for (i in 1:5) {
+  out[i] <- i^2
+}
+out
+```
+
+```{r}
+x <- -3:3
+ifelse(x >= 0, "non-negative", "negative")
+```
+
+```{r}
+v <- c(2, 5, NA, 9, 11)
+mean(v, na.rm = TRUE)
+sum(v, na.rm = TRUE)
+length(v)
+```
+
+```{r}
+c_to_f <- function(c) {
+  (c * 9/5) + 32
+}
+c_to_f(0)
+c_to_f(20)
+c_to_f(100)
+```
+
+```{r}
+flights |>
+  group_by(month) |>
+  summarize(mean_dep = mean(dep_delay, na.rm = TRUE)) |>
+  arrange(month)
+```

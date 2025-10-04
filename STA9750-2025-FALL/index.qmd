@@ -1,0 +1,43 @@
+---
+title: "Xiaolin Wu — STA 9750 Website"
+---
+
+# Welcome!
+
+Hi, my name is Xiaolin Wu.\
+This website hosts my submission materials for **STA 9750 at Baruch College**.
+
+I am currently a graduate student with interests in data analytics and urban design.\
+Here, you’ll find my course projects, assignments, and reflections.
+
+-   📄 [My Resume](Xiaolin_Wu_Resume.pdf)\
+-   📧 Contact: xiaolin.wu1\@baruchmail.cuny.edu
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+if(!require("leaflet")){
+    options(repos=c(CRAN="https://cloud.r-project.org"))
+    install.packages("leaflet")
+    stopifnot(require("leaflet"))
+}
+
+baruch_longitude <- -73.98333
+baruch_latitude  <- +40.75028
+
+leaflet() |>
+  addTiles() |>
+  setView(baruch_longitude, baruch_latitude, zoom=17) |>
+  addPopups(baruch_longitude, baruch_latitude, 
+            "I am a Master's student at <b>Baruch College</b>!")
+```
+
+```{r}
+#| include: false
+1+1
+```
+--------------
+Last Updated: `r format(Sys.time(), "%A %m %d, %Y at %H:%M%p")`
+
