@@ -179,15 +179,15 @@ background: #e50914;
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation"><strong><em>Interpretation:</em></strong></a></li>
   <li><a href="#press-release-1-stranger-things-season-5" id="toc-press-release-1-stranger-things-season-5" class="nav-link" data-scroll-target="#press-release-1-stranger-things-season-5"><strong>Press Release 1: Stranger Things Season 5</strong></a>
   <ul class="collapse">
-  <li><a href="#netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" id="toc-netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" class="nav-link" data-scroll-target="#netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season"><strong>Netflix’s Global Phenomenon Returns: Stranger Things Prepares for a Historic Final Season</strong></a></li>
+  <li><a href="#netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" id="toc-netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" class="nav-link" data-scroll-target="#netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season">📢&nbsp;<strong>Netflix’s Global Phenomenon Returns: Stranger Things Prepares for a Historic Final Season</strong></a></li>
   </ul></li>
   <li><a href="#press-release-2-netflixs-blockbuster-growth-in-india" id="toc-press-release-2-netflixs-blockbuster-growth-in-india" class="nav-link" data-scroll-target="#press-release-2-netflixs-blockbuster-growth-in-india"><strong>Press Release 2: Netflix’s Blockbuster Growth in India</strong></a>
   <ul class="collapse">
-  <li><a href="#netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" id="toc-netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" class="nav-link" data-scroll-target="#netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market"><strong>Netflix Celebrates Record-Breaking Hindi Hits and Rapid Subscriber Growth in the World’s Largest Market</strong></a></li>
+  <li><a href="#netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" id="toc-netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" class="nav-link" data-scroll-target="#netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market">📢 <strong>Netflix Celebrates Record-Breaking Hindi Hits and Rapid Subscriber Growth in the World’s Largest Market</strong></a></li>
   </ul></li>
   <li><a href="#press-release-3-netflixs-global-non-english-tv-success" id="toc-press-release-3-netflixs-global-non-english-tv-success" class="nav-link" data-scroll-target="#press-release-3-netflixs-global-non-english-tv-success"><strong>Press Release 3: Netflix’s Global Non-English TV Success</strong></a>
   <ul class="collapse">
-  <li><a href="#from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" id="toc-from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" class="nav-link" data-scroll-target="#from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10"><strong>From Seoul to Madrid: Non-English Originals Reshape Netflix’s Global Top 10</strong></a></li>
+  <li><a href="#from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" id="toc-from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" class="nav-link" data-scroll-target="#from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10">📢 <strong>From Seoul to Madrid: Non-English Originals Reshape Netflix’s Global Top 10</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -203,98 +203,33 @@ background: #e50914;
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">dir.exists</span>(<span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>))){</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir.create</span>(<span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>), <span class="at">showWarnings=</span><span class="cn">FALSE</span>, <span class="at">recursive=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(<span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>), <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>GLOBAL_TOP_10_FILENAME <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>, <span class="st">"global_top10_alltime.csv"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(GLOBAL_TOP_10_FILENAME)){</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">download.file</span>(<span class="st">"https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv"</span>, </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">destfile=</span>GLOBAL_TOP_10_FILENAME)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>COUNTRY_TOP_10_FILENAME <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>, <span class="st">"country_top10_alltime.csv"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(COUNTRY_TOP_10_FILENAME)){</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">download.file</span>(<span class="st">"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv"</span>, </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">destfile=</span>COUNTRY_TOP_10_FILENAME)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>GLOBAL_TOP_10_FILENAME  <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>, <span class="st">"global_top10_alltime.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>COUNTRY_TOP_10_FILENAME <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"mp01"</span>, <span class="st">"country_top10_alltime.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(GLOBAL_TOP_10_FILENAME)){</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="st">"https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv"</span>, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">destfile =</span> GLOBAL_TOP_10_FILENAME)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(COUNTRY_TOP_10_FILENAME)){</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="st">"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv"</span>, </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">destfile =</span> COUNTRY_TOP_10_FILENAME)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'janitor'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    chisq.test, fisher.test</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>global_path  <span class="ot">&lt;-</span> <span class="st">"data/mp01/global_top10_alltime.csv"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>country_path <span class="ot">&lt;-</span> <span class="st">"data/mp01/country_top10_alltime.csv"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>global_df  <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(global_path,  <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>country_df <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(country_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Global rows:"</span>, <span class="fu">nrow</span>(global_df), <span class="st">"  Country rows:"</span>, <span class="fu">nrow</span>(country_df), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Global rows: 8880   Country rows: 413620 </code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(global_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 8,880
-Columns: 9
-$ week                       &lt;date&gt; 2025-09-28, 2025-09-28, 2025-09-28, 2025-0…
-$ category                   &lt;chr&gt; "Films (English)", "Films (English)", "Film…
-$ weekly_rank                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, …
-$ show_title                 &lt;chr&gt; "KPop Demon Hunters", "Ruth &amp; Boaz", "The W…
-$ season_title               &lt;chr&gt; "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "…
-$ weekly_hours_viewed        &lt;dbl&gt; 32200000, 15900000, 13500000, 15700000, 112…
-$ runtime                    &lt;dbl&gt; 1.6667, 1.5500, 1.7833, 2.4333, 1.8333, 1.7…
-$ weekly_views               &lt;dbl&gt; 19300000, 10300000, 7600000, 6500000, 61000…
-$ cumulative_weeks_in_top_10 &lt;dbl&gt; 15, 1, 3, 5, 2, 1, 1, 1, 1, 3, 2, 1, 1, 2, …</code></pre>
-</div>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyverse"</span>)) <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyverse"</span>)) <span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: tidyverse</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
@@ -306,51 +241,47 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 15, 1, 3, 5, 2, 1, 1, 1, 1, 3, 2, 1, 1,
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"janitor"</span>))   <span class="fu">install.packages</span>(<span class="st">"janitor"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: janitor
+
+Attaching package: 'janitor'
+
+The following objects are masked from 'package:stats':
+
+    chisq.test, fisher.test</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(<span class="st">"gt"</span>))        <span class="fu">install.packages</span>(<span class="st">"gt"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: gt</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import and clean GLOBAL_TOP_10</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>GLOBAL_TOP_10 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(GLOBAL_TOP_10_FILENAME, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season_title =</span> <span class="fu">if_else</span>(season_title <span class="sc">==</span> <span class="st">"N/A"</span>, <span class="cn">NA_character_</span>, season_title))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Import and clean COUNTRY_TOP_10</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>COUNTRY_TOP_10 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(COUNTRY_TOP_10_FILENAME, <span class="at">na =</span> <span class="st">"N/A"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick checks</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GLOBAL_TOP_10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>GLOBAL_TOP_10 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(GLOBAL_TOP_10_FILENAME, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">season_title =</span> <span class="fu">if_else</span>(season_title <span class="sc">==</span> <span class="st">"N/A"</span>, <span class="cn">NA_character_</span>, season_title))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>COUNTRY_TOP_10 <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(COUNTRY_TOP_10_FILENAME, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Global rows:"</span>, <span class="fu">nrow</span>(GLOBAL_TOP_10), <span class="st">"  Country rows:"</span>, <span class="fu">nrow</span>(COUNTRY_TOP_10), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 8,880
-Columns: 9
-$ week                       &lt;date&gt; 2025-09-28, 2025-09-28, 2025-09-28, 2025-0…
-$ category                   &lt;chr&gt; "Films (English)", "Films (English)", "Film…
-$ weekly_rank                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, …
-$ show_title                 &lt;chr&gt; "KPop Demon Hunters", "Ruth &amp; Boaz", "The W…
-$ season_title               &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, "aka Ch…
-$ weekly_hours_viewed        &lt;dbl&gt; 32200000, 15900000, 13500000, 15700000, 112…
-$ runtime                    &lt;dbl&gt; 1.6667, 1.5500, 1.7833, 2.4333, 1.8333, 1.7…
-$ weekly_views               &lt;dbl&gt; 19300000, 10300000, 7600000, 6500000, 61000…
-$ cumulative_weeks_in_top_10 &lt;dbl&gt; 15, 1, 3, 5, 2, 1, 1, 1, 1, 3, 2, 1, 1, 2, …</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(COUNTRY_TOP_10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 413,620
-Columns: 8
-$ country_name               &lt;chr&gt; "Argentina", "Argentina", "Argentina", "Arg…
-$ country_iso2               &lt;chr&gt; "AR", "AR", "AR", "AR", "AR", "AR", "AR", "…
-$ week                       &lt;date&gt; 2025-09-28, 2025-09-28, 2025-09-28, 2025-0…
-$ category                   &lt;chr&gt; "Films", "Films", "Films", "Films", "Films"…
-$ weekly_rank                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, …
-$ show_title                 &lt;chr&gt; "Sonic the Hedgehog 3", "KPop Demon Hunters…
-$ season_title               &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Bi…
-$ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1, 1, …</code></pre>
+<pre><code>Global rows: 8880   Country rows: 413620 </code></pre>
 </div>
 </div>
 <section id="initial-data-exploration" class="level2">
@@ -359,40 +290,40 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># total</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>total_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(GLOBAL_TOP_10)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>unique_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(GLOBAL_TOP_10<span class="sc">$</span>show_title)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># category</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>category_summary <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(category, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>category_summary <span class="sc">%&gt;%</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Table 1: Number of Records by Category in Global Top 10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>total_rows   <span class="ot">&lt;-</span> <span class="fu">nrow</span>(GLOBAL_TOP_10)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>unique_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(GLOBAL_TOP_10<span class="sc">$</span>show_title)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># category</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>category_summary <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(category, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>category_summary <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Table 1: Number of Records by Category in Global Top 10"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#ffe5e5"</span>),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">rows =</span> category <span class="sc">==</span> <span class="st">"TV (English)"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="clgskzvmlt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#clgskzvmlt table {
+<div id="gbegytqmrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gbegytqmrm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#clgskzvmlt thead, #clgskzvmlt tbody, #clgskzvmlt tfoot, #clgskzvmlt tr, #clgskzvmlt td, #clgskzvmlt th {
+#gbegytqmrm thead, #gbegytqmrm tbody, #gbegytqmrm tfoot, #gbegytqmrm tr, #gbegytqmrm td, #gbegytqmrm th {
   border-style: none;
 }
 
-#clgskzvmlt p {
+#gbegytqmrm p {
   margin: 0;
   padding: 0;
 }
 
-#clgskzvmlt .gt_table {
+#gbegytqmrm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -418,12 +349,12 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-left-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_caption {
+#gbegytqmrm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#clgskzvmlt .gt_title {
+#gbegytqmrm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -435,7 +366,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-bottom-width: 0;
 }
 
-#clgskzvmlt .gt_subtitle {
+#gbegytqmrm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -447,7 +378,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-top-width: 0;
 }
 
-#clgskzvmlt .gt_heading {
+#gbegytqmrm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -459,13 +390,13 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-right-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_bottom_border {
+#gbegytqmrm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_col_headings {
+#gbegytqmrm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -480,7 +411,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-right-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_col_heading {
+#gbegytqmrm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -500,7 +431,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   overflow-x: hidden;
 }
 
-#clgskzvmlt .gt_column_spanner_outer {
+#gbegytqmrm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -512,15 +443,15 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 4px;
 }
 
-#clgskzvmlt .gt_column_spanner_outer:first-child {
+#gbegytqmrm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#clgskzvmlt .gt_column_spanner_outer:last-child {
+#gbegytqmrm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#clgskzvmlt .gt_column_spanner {
+#gbegytqmrm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -532,11 +463,11 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   width: 100%;
 }
 
-#clgskzvmlt .gt_spanner_row {
+#gbegytqmrm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#clgskzvmlt .gt_group_heading {
+#gbegytqmrm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,7 +493,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   text-align: left;
 }
 
-#clgskzvmlt .gt_empty_group_heading {
+#gbegytqmrm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -577,15 +508,15 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   vertical-align: middle;
 }
 
-#clgskzvmlt .gt_from_md > :first-child {
+#gbegytqmrm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#clgskzvmlt .gt_from_md > :last-child {
+#gbegytqmrm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#clgskzvmlt .gt_row {
+#gbegytqmrm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -604,7 +535,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   overflow-x: hidden;
 }
 
-#clgskzvmlt .gt_stub {
+#gbegytqmrm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -617,7 +548,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 5px;
 }
 
-#clgskzvmlt .gt_stub_row_group {
+#gbegytqmrm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -631,15 +562,15 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   vertical-align: top;
 }
 
-#clgskzvmlt .gt_row_group_first td {
+#gbegytqmrm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#clgskzvmlt .gt_row_group_first th {
+#gbegytqmrm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#clgskzvmlt .gt_summary_row {
+#gbegytqmrm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -649,16 +580,16 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 5px;
 }
 
-#clgskzvmlt .gt_first_summary_row {
+#gbegytqmrm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_first_summary_row.thick {
+#gbegytqmrm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#clgskzvmlt .gt_last_summary_row {
+#gbegytqmrm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -668,7 +599,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-bottom-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_grand_summary_row {
+#gbegytqmrm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -678,7 +609,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 5px;
 }
 
-#clgskzvmlt .gt_first_grand_summary_row {
+#gbegytqmrm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -688,7 +619,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-top-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_last_grand_summary_row_top {
+#gbegytqmrm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -698,11 +629,11 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-bottom-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_striped {
+#gbegytqmrm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#clgskzvmlt .gt_table_body {
+#gbegytqmrm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -711,7 +642,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-bottom-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_footnotes {
+#gbegytqmrm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -725,7 +656,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-right-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_footnote {
+#gbegytqmrm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -734,7 +665,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 5px;
 }
 
-#clgskzvmlt .gt_sourcenotes {
+#gbegytqmrm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -748,7 +679,7 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   border-right-color: #D3D3D3;
 }
 
-#clgskzvmlt .gt_sourcenote {
+#gbegytqmrm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -756,72 +687,72 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
   padding-right: 5px;
 }
 
-#clgskzvmlt .gt_left {
+#gbegytqmrm .gt_left {
   text-align: left;
 }
 
-#clgskzvmlt .gt_center {
+#gbegytqmrm .gt_center {
   text-align: center;
 }
 
-#clgskzvmlt .gt_right {
+#gbegytqmrm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#clgskzvmlt .gt_font_normal {
+#gbegytqmrm .gt_font_normal {
   font-weight: normal;
 }
 
-#clgskzvmlt .gt_font_bold {
+#gbegytqmrm .gt_font_bold {
   font-weight: bold;
 }
 
-#clgskzvmlt .gt_font_italic {
+#gbegytqmrm .gt_font_italic {
   font-style: italic;
 }
 
-#clgskzvmlt .gt_super {
+#gbegytqmrm .gt_super {
   font-size: 65%;
 }
 
-#clgskzvmlt .gt_footnote_marks {
+#gbegytqmrm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#clgskzvmlt .gt_asterisk {
+#gbegytqmrm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#clgskzvmlt .gt_indent_1 {
+#gbegytqmrm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#clgskzvmlt .gt_indent_2 {
+#gbegytqmrm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#clgskzvmlt .gt_indent_3 {
+#gbegytqmrm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#clgskzvmlt .gt_indent_4 {
+#gbegytqmrm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#clgskzvmlt .gt_indent_5 {
+#gbegytqmrm .gt_indent_5 {
   text-indent: 25px;
 }
 
-#clgskzvmlt .katex-display {
+#gbegytqmrm .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#clgskzvmlt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gbegytqmrm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -832,497 +763,6 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
 <td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 1: Number of Records by Category in Global Top 10</td>
 </tr>
 <tr class="gt_col_headings even">
-<th id="category" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">category</th>
-<th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_left" headers="category">Films (English)</td>
-<td class="gt_row gt_right" headers="n">2220</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="category">Films (Non-English)</td>
-<td class="gt_row gt_right" headers="n">2220</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="category">TV (English)</td>
-<td class="gt_row gt_right" headers="n">2220</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="category">TV (Non-English)</td>
-<td class="gt_row gt_right" headers="n">2220</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    category_summary <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"#ffe5e5"</span>),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> category <span class="sc">==</span> <span class="st">"TV (English)"</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output-display">
-<div id="xoglpyztxl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xoglpyztxl table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#xoglpyztxl thead, #xoglpyztxl tbody, #xoglpyztxl tfoot, #xoglpyztxl tr, #xoglpyztxl td, #xoglpyztxl th {
-  border-style: none;
-}
-
-#xoglpyztxl p {
-  margin: 0;
-  padding: 0;
-}
-
-#xoglpyztxl .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#xoglpyztxl .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#xoglpyztxl .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#xoglpyztxl .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#xoglpyztxl .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#xoglpyztxl .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#xoglpyztxl .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#xoglpyztxl .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#xoglpyztxl .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#xoglpyztxl .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#xoglpyztxl .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#xoglpyztxl .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#xoglpyztxl .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#xoglpyztxl .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#xoglpyztxl .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xoglpyztxl .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#xoglpyztxl .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#xoglpyztxl .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#xoglpyztxl .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xoglpyztxl .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#xoglpyztxl .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xoglpyztxl .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#xoglpyztxl .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xoglpyztxl .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#xoglpyztxl .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#xoglpyztxl .gt_left {
-  text-align: left;
-}
-
-#xoglpyztxl .gt_center {
-  text-align: center;
-}
-
-#xoglpyztxl .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#xoglpyztxl .gt_font_normal {
-  font-weight: normal;
-}
-
-#xoglpyztxl .gt_font_bold {
-  font-weight: bold;
-}
-
-#xoglpyztxl .gt_font_italic {
-  font-style: italic;
-}
-
-#xoglpyztxl .gt_super {
-  font-size: 65%;
-}
-
-#xoglpyztxl .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#xoglpyztxl .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#xoglpyztxl .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#xoglpyztxl .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#xoglpyztxl .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#xoglpyztxl .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#xoglpyztxl .gt_indent_5 {
-  text-indent: 25px;
-}
-
-#xoglpyztxl .katex-display {
-  display: inline-flex !important;
-  margin-bottom: 0.75em !important;
-}
-
-#xoglpyztxl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
-  height: 0px !important;
-}
-</style>
-
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings header">
 <th id="category" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">category</th>
 <th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
 </tr>
@@ -1353,73 +793,52 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
 </section>
 <section id="interpretation" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation"><strong><em>Interpretation:</em></strong></h2>
-<p>The global dataset contains r total_rows weekly records, covering r unique_shows unique shows. As shown in Table 1, the four categories — English and non-English films and TV — are evenly represented, each with 2,220 entries. This balance is a feature of the dataset’s construction, ensuring comparability across categories. In practice, however, actual viewer attention may be concentrated in a smaller number of titles.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stranger_things <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Stranger Things"</span>, show_title))</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>total_hours <span class="ot">&lt;-</span> <span class="fu">sum</span>(stranger_things<span class="sc">$</span>weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>weeks_in_top10 <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(stranger_things<span class="sc">$</span>week)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>st_countries <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Stranger Things"</span>, show_title)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_countries =</span> <span class="fu">n_distinct</span>(country_name)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(num_countries)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>top_english_tv <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">"TV (English)"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_hours)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>top_english_tv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
-  show_title      total_hours
-  &lt;chr&gt;                 &lt;dbl&gt;
-1 Stranger Things  2967980000
-2 Wednesday        2876350000
-3 Bridgerton       2279710000
-4 Ginny &amp; Georgia  1556880000
-5 You              1542990000</code></pre>
-</div>
-</div>
+<p>The dataset contains&nbsp;<strong>8880&nbsp;records</strong>&nbsp;covering&nbsp;<strong>2852&nbsp;unique shows</strong>. Each of the four categories is evenly represented (English / Non-English TV &amp; Films), ensuring comparability, though real-world popularity may concentrate in fewer titles.</p>
 </section>
 <section id="press-release-1-stranger-things-season-5" class="level2">
 <h2 class="anchored" data-anchor-id="press-release-1-stranger-things-season-5"><strong>Press Release 1: Stranger Things Season 5</strong></h2>
-<section id="netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" class="level3">
-<h3 class="anchored" data-anchor-id="netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season"><strong>Netflix’s Global Phenomenon Returns: Stranger Things Prepares for a Historic Final Season</strong></h3>
-<p>The countdown is on—<em>Stranger Things</em> will return in late 2025 with its fifth and final season, marking the end of a show that has defined a generation of Netflix storytelling. As the series prepares to close its chapter, Netflix looks back at the extraordinary success that made Hawkins, Indiana, and the Upside Down household names around the world.</p>
-<p>Since its launch in 2016, <em>Stranger Things</em> has become a cultural phenomenon and one of Netflix’s flagship originals. Across four groundbreaking seasons, the series has accumulated more than <strong>r scales::comma(total_hours) hours of global viewership</strong>, securing its place among the most-watched English-language shows on the platform. These numbers reflect not just statistics, but years of thrilling storytelling enjoyed by millions of fans across continents.</p>
-<p>What sets <em>Stranger Things</em> apart is its ability to hold audience attention over time. The series has remained in the <strong>Top 10 for more than r weeks_in_top10 weeks</strong>, demonstrating a remarkable staying power that few titles can match. Week after week, season after season, the adventures of Eleven and her friends have kept viewers eagerly returning.</p>
-<p>The show’s reach has also been distinctly international. Appearing in the Top 10 across <strong>r st_countries countries</strong>, <em>Stranger Things</em> has proven that a story born in small-town America resonates with audiences from Buenos Aires to Berlin, from Seoul to Sydney. This global impact underscores Netflix’s mission to deliver entertainment without borders.</p>
-<p>When compared to other top English-language TV series, <em>Stranger Things</em> consistently ranks near the top in total hours viewed. While acclaimed titles such as r top_english_tv$show_title[2] and r top_english_tv$show_title[3] have drawn large audiences, <em>Stranger Things</em> continues to outpace many of its peers, highlighting its singular role as a genre-defining show that blends supernatural thrills with heartfelt nostalgia.</p>
-<p>As the final season approaches, Netflix is excited to deliver a powerful conclusion to this global success story. With its unique mix of suspense, 1980s nostalgia, and unforgettable characters, <em>Stranger Things</em> is ready to leave an indelible mark on television history one last time.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stranger Things trend</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>st_data <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Stranger Things"</span>, show_title)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weekly_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(st_data, <span class="fu">aes</span>(<span class="at">x =</span> week, <span class="at">y =</span> weekly_hours<span class="sc">/</span><span class="fl">1e6</span>)) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#e50914"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#e50914"</span>) <span class="sc">+</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Stranger Things Global Viewership Trend"</span>,</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Week"</span>,</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Weekly Hours Viewed (Millions)"</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stranger_things <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Stranger Things"</span>, show_title))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>total_hours   <span class="ot">&lt;-</span> <span class="fu">sum</span>(stranger_things<span class="sc">$</span>weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>weeks_in_top10 <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(stranger_things<span class="sc">$</span>week)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>st_countries <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Stranger Things"</span>, show_title)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_countries =</span> <span class="fu">n_distinct</span>(country_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(num_countries)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>top_english_tv <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">"TV (English)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_hours)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season" class="level3">
+<h3 class="anchored" data-anchor-id="netflixs-global-phenomenon-returns-stranger-things-prepares-for-a-historic-final-season">📢&nbsp;<strong>Netflix’s Global Phenomenon Returns: Stranger Things Prepares for a Historic Final Season</strong></h3>
+<ul>
+<li><p>Total hours viewed:&nbsp;<strong>2,967,980,000</strong></p></li>
+<li><p>Weeks in Top 10:&nbsp;<strong>20</strong></p></li>
+<li><p>Countries appeared:&nbsp;<strong>93</strong></p></li>
+</ul>
+<p>Compared with other English TV shows (like&nbsp;<em>Wednesday</em>&nbsp;and&nbsp;<em>Bridgerton</em>), Stranger Things remains one of the strongest titles worldwide.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>st_data <span class="ot">&lt;-</span> stranger_things <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(week) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weekly_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(st_data, <span class="fu">aes</span>(<span class="at">x =</span> week, <span class="at">y =</span> weekly_hours<span class="sc">/</span><span class="fl">1e6</span>)) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#e50914"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#e50914"</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stranger Things Global Viewership Trend"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Week"</span>, <span class="at">y =</span> <span class="st">"Weekly Hours Viewed (Millions)"</span>) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
@@ -1428,90 +847,51 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="mp01_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="mp01_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># India data preparation</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>india_top <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"India"</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>india_hours <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(show_title <span class="sc">%in%</span> india_top<span class="sc">$</span>show_title) <span class="sc">%&gt;%</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(total_hours)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>india_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(india_top<span class="sc">$</span>show_title)</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>us_top <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"United States"</span>)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>india_unique <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(india_top<span class="sc">$</span>show_title, us_top<span class="sc">$</span>show_title)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a> <span class="co"># hit program</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>india_hours</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.04909e+11</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>india_shows</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1173</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(india_unique, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "Mahavatar Narsimha"          "Son of Sardaar 2"           
- [3] "Dhadak 2"                    "Saiyaara"                   
- [5] "Odum Kuthira Chadum Kuthira" "Inspector Zende"            
- [7] "Kingdom"                     "Maareesan"                  
- [9] "The Ba***ds of Bollywood"    "Bon Appétit, Your Majesty"  </code></pre>
 </div>
 </div>
 </section>
 </section>
 <section id="press-release-2-netflixs-blockbuster-growth-in-india" class="level2">
 <h2 class="anchored" data-anchor-id="press-release-2-netflixs-blockbuster-growth-in-india"><strong>Press Release 2: Netflix’s Blockbuster Growth in India</strong></h2>
-<section id="netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" class="level3">
-<h3 class="anchored" data-anchor-id="netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market"><strong>Netflix Celebrates Record-Breaking Hindi Hits and Rapid Subscriber Growth in the World’s Largest Market</strong></h3>
-<p>India, the world’s most populous nation, has become one of Netflix’s fastest-growing regions. With the surge of high-quality Hindi-language films and TV series, Netflix has established itself as a premier destination for Indian entertainment.</p>
-<p>Over the past year, Hindi titles available on Netflix have generated more than <strong>r scales::comma(india_hours) hours of global viewing</strong>, showcasing the extraordinary appetite of Indian audiences for local-language content. In total, Indian subscribers have pushed <strong>r india_shows unique shows and films</strong> into the weekly Top 10 rankings.</p>
-<p>What sets India apart is the strength of titles that resonate specifically with local viewers. Shows such as <em>r india_unique[1]</em> and <em>r india_unique[2]</em> have dominated the Top 10 in India even when they did not chart in the United States. This highlights Netflix’s ability to foster regional hits that speak directly to Indian culture and tastes.</p>
-<p>Taken together, these viewing patterns suggest rapid subscriber growth in India. If Hindi-language viewership is treated as a proxy for the size of the Indian customer base, Netflix is now engaging millions of households across the country—making India one of the platform’s most dynamic growth markets.</p>
-<p>Looking ahead, Netflix will continue to invest in Hindi-language originals and expand its partnerships with Indian storytellers. By delivering compelling local hits alongside global blockbusters, Netflix is committed to ensuring that Indian audiences feel at home on the world’s leading streaming platform.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 Netflix shows in India by number of weeks in Top 10</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>india_top10 <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"India"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weeks_in_top10 =</span> <span class="fu">n_distinct</span>(week)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weeks_in_top10)) <span class="sc">%&gt;%</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  india_top10,                                    </span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(show_title, weeks_in_top10),   </span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> weeks_in_top10)</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#E50914"</span>) <span class="sc">+</span></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span>                                 </span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 10 Netflix Shows in India by Weeks in Top 10"</span>,</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Show Title"</span>,</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Weeks in Top 10"</span></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>india_top <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"India"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>us_top    <span class="ot">&lt;-</span> COUNTRY_TOP_10 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"United States"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>india_hours <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(show_title <span class="sc">%in%</span> india_top<span class="sc">$</span>show_title) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(total_hours)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>india_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(india_top<span class="sc">$</span>show_title)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>india_unique <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(india_top<span class="sc">$</span>show_title, us_top<span class="sc">$</span>show_title)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market" class="level3">
+<h3 class="anchored" data-anchor-id="netflix-celebrates-record-breaking-hindi-hits-and-rapid-subscriber-growth-in-the-worlds-largest-market">📢 <strong>Netflix Celebrates Record-Breaking Hindi Hits and Rapid Subscriber Growth in the World’s Largest Market</strong></h3>
+<ul>
+<li><p>Total Hindi content hours:&nbsp;<strong>104,909,000,000</strong></p></li>
+<li><p>Unique Indian shows in Top 10:&nbsp;<strong>1173</strong></p></li>
+<li><p>Local-only hits:&nbsp;<em>Mahavatar Narsimha</em>,&nbsp;<em>Son of Sardaar 2</em></p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>india_top10 <span class="ot">&lt;-</span> india_top <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weeks_in_top10 =</span> <span class="fu">n_distinct</span>(week)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weeks_in_top10)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(india_top10, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(show_title, weeks_in_top10), <span class="at">y =</span> weeks_in_top10)) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#E50914"</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 10 Netflix Shows in India (Weeks in Top 10)"</span>, <span class="at">x =</span> <span class="st">"Show"</span>, <span class="at">y =</span> <span class="st">"Weeks"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1521,59 +901,47 @@ $ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1,
 </div>
 </div>
 </div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-English TV shows in GLOBAL dataset</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>non_english_tv <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">"TV (Non-English)"</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># total hour</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>non_eng_hours <span class="ot">&lt;-</span> non_english_tv <span class="sc">%&gt;%</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(total_hours)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># TV amount</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>non_eng_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(non_english_tv<span class="sc">$</span>show_title)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># hit non-english tv shows</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>top_non_eng <span class="ot">&lt;-</span> non_english_tv <span class="sc">%&gt;%</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">total_weeks =</span> <span class="fu">n_distinct</span>(week)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_hours)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
 </section>
 </section>
 <section id="press-release-3-netflixs-global-non-english-tv-success" class="level2">
 <h2 class="anchored" data-anchor-id="press-release-3-netflixs-global-non-english-tv-success"><strong>Press Release 3: Netflix’s Global Non-English TV Success</strong></h2>
-<section id="from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" class="level3">
-<h3 class="anchored" data-anchor-id="from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10"><strong>From Seoul to Madrid: Non-English Originals Reshape Netflix’s Global Top 10</strong></h3>
-<p>Netflix today announced the remarkable worldwide success of its Non-English language TV series, which continue to capture audiences and fuel subscriber growth around the globe.</p>
-<p>Across all markets, Non-English TV titles have generated more than <strong>r scales::comma(non_eng_hours) hours of global viewing</strong>, cementing their role as a cornerstone of Netflix’s content strategy. In total, over <strong>r non_eng_shows unique series</strong> have reached the Top 10, demonstrating both the popularity and diversity of storytelling outside the English-speaking world.</p>
-<p>Breakout hits like <em>r top_non_eng$show_title[1]</em> and <em>r top_non_eng$show_title[2]</em> have dominated the charts, proving that compelling stories transcend borders. These titles have not only topped the rankings in their home countries but also reached millions of households across dozens of international markets.</p>
-<p>The rise of Non-English originals reflects a major shift in global entertainment: audiences everywhere are embracing local stories with universal appeal. For Netflix, this success highlights the value of continued investment in regional productions—from Korean dramas to Spanish thrillers—that can resonate far beyond their country of origin.</p>
-<p>As Netflix expands its portfolio of Non-English hits, the company is committed to delivering more stories that connect with global audiences, no matter the language.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare English vs Non-English TV</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>tv_compare <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TV (English)"</span>, <span class="st">"TV (Non-English)"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category) <span class="sc">%&gt;%</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_compare, <span class="fu">aes</span>(<span class="at">x =</span> category, <span class="at">y =</span> total_hours<span class="sc">/</span><span class="fl">1e9</span>, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#e50914"</span>, <span class="st">"#221f1f"</span>)) <span class="sc">+</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Global Viewership: English vs Non-English TV"</span>,</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Hours Viewed (Billions)"</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>non_english_tv <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">"TV (Non-English)"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>non_eng_hours <span class="ot">&lt;-</span> <span class="fu">sum</span>(non_english_tv<span class="sc">$</span>weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>non_eng_shows <span class="ot">&lt;-</span> <span class="fu">n_distinct</span>(non_english_tv<span class="sc">$</span>show_title)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>top_non_eng <span class="ot">&lt;-</span> non_english_tv <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(show_title) <span class="sc">%&gt;%</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">total_weeks =</span> <span class="fu">n_distinct</span>(week)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_hours)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10" class="level3">
+<h3 class="anchored" data-anchor-id="from-seoul-to-madrid-non-english-originals-reshape-netflixs-global-top-10">📢 <strong>From Seoul to Madrid: Non-English Originals Reshape Netflix’s Global Top 10</strong></h3>
+<ul>
+<li><p>Non-English hours viewed:&nbsp;<strong>44,714,410,000</strong></p></li>
+<li><p>Unique Non-English shows:&nbsp;<strong>530</strong></p></li>
+<li><p>Breakout titles:&nbsp;<em>Squid Game</em>,&nbsp;<em>Money Heist</em></p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tv_compare <span class="ot">&lt;-</span> GLOBAL_TOP_10 <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"TV (English)"</span>, <span class="st">"TV (Non-English)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(category) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_hours =</span> <span class="fu">sum</span>(weekly_hours_viewed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_compare, <span class="fu">aes</span>(<span class="at">x =</span> category, <span class="at">y =</span> total_hours<span class="sc">/</span><span class="fl">1e9</span>, <span class="at">fill =</span> category)) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#e50914"</span>, <span class="st">"#221f1f"</span>)) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"English vs Non-English TV (Billions of Hours)"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Total Hours (Billions)"</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
