@@ -99,7 +99,7 @@ category_summary %>%
 
 ```
 
-## ***Interpretation:*** 
+## ***Interpretation:***
 
 The global dataset contains r total_rows weekly records, covering r unique_shows unique shows. As shown in Table 1, the four categories — English and non-English films and TV — are evenly represented, each with 2,220 entries. This balance is a feature of the dataset’s construction, ensuring comparability across categories. In practice, however, actual viewer attention may be concentrated in a smaller number of titles.
 
