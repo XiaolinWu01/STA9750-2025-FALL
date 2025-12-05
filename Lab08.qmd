@@ -1,0 +1,51 @@
+---
+title: "Lab08"
+author: "Xiaolin Wu"
+---
+
+```{r}
+# load packages
+library(tidyverse)
+library(broom)
+
+# check data
+head(mtcars)
+
+glimpse(mtcars)
+```
+
+```{r}
+model <- lm(mpg ~ wt + hp, data = mtcars)
+summary(model)
+```
+```{r}
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "MPG vs Weight with Linear Fit")
+```
+
+```{r}
+plot(model)   # Examine residuals
+```
+
+```{r}
+tidy(model)
+glance(model)
+# Clean model output with broom
+```
+
+```{r}
+aug <- augment(model)
+
+ggplot(aug, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted Values", y = "Residuals",
+       title = "Residuals vs Fitted")
+```
+
+```{r}
+model2 <- lm(mpg ~ wt + hp + qsec, data = mtcars)
+summary(model2)
+```
