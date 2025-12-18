@@ -1,0 +1,74 @@
+---
+title: "Group"
+format: html
+---
+
+```{r subway-crime-rate, message=FALSE, warning=FALSE}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+
+# Aggregate monthly subway crime complaints (Transit Bureau only)
+crime_subway <- crime_raw %>%
+  filter(JURIS_DESC == "N.Y. TRANSIT POLICE") %>%
+  mutate(
+    date = as.Date(RPT_DT, format = "%m/%d/%Y"),
+    year_month = floor_date(date, "month")
+  ) %>%
+  group_by(year_month) %>%
+  summarise(
+    total_crimes = n(),
+    .groups = "drop"
+  )
+
+# Aggregate monthly subway ridership
+rides_monthly <- rides_raw %>%
+  mutate(
+    date = as.Date(Date, format = "%m/%d/%Y"),
+    year_month = floor_date(date, "month")
+  ) %>%
+  group_by(year_month) %>%
+  summarise(
+    subway_rides = sum(`Subways: Total Estimated Ridership`, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Merge and compute crime rate per 1M rides
+trend <- left_join(rides_monthly, crime_subway, by = "year_month") %>%
+  mutate(
+    crimes_per_million = total_crimes / subway_rides * 1e6
+  ) %>%
+  filter(!is.na(crimes_per_million))
+
+# Plot: Monthly subway crime rate per rider
+ggplot(trend, aes(x = year_month, y = crimes_per_million)) +
+  geom_line(color = "black", linewidth = 1) +
+  geom_point(color = "black", size = 2) +
+  geom_vline(
+    xintercept = as.Date("2022-02-01"),
+    linetype = "dotted",
+    color = "gray40"
+  ) +
+  labs(
+    title = "Subway Crime Rate per 1M Rides",
+    subtitle = "NYPD Transit Police complaints normalized by MTA monthly ridership",
+    x = "Month",
+    y = "Crimes per 1,000,000 rides",
+    caption = "Sources: NYC Open Data (NYPD Complaints), MTA Daily Ridership"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.title = element_text(face = "bold")
+  )
+
+```
+### Subway Crime Rate Trend Over Time
+
+To assess whether subway crime has increased or decreased over time, NYPD Transit Bureau complaint data were aggregated at a monthly level and normalized by total monthly subway ridership. This normalization accounts for large fluctuations in transit usage over the study period, particularly during the post-COVID recovery phase, and allows for more meaningful comparisons across time.
+
+Complaint records were restricted to incidents handled by the NYPD Transit Bureau, using the jurisdiction descriptor “N.Y. TRANSIT POLICE” as a proxy for subway-related crime. Monthly complaint counts were then combined with monthly aggregates of MTA subway ridership to compute a crime rate expressed as complaints per one million rides.
+
+The resulting time series indicates an initial decline in crime rates during early 2022, followed by a period of relative stability through much of 2022 and early 2023. Beginning in late 2023, however, subway crime rates per rider increase sharply and remain elevated throughout 2024. Importantly, this upward trend persists after normalizing for ridership, suggesting that the observed increase cannot be attributed solely to recovering subway usage.
+
+While raw complaint counts also rise over this period, the rate-based analysis demonstrates that crime per rider has increased, rather than reflecting changes in passenger volume alone. This finding indicates a sustained deterioration in subway safety conditions on a per-rider basis since late 2023.

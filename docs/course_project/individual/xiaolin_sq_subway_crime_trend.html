@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Xiaolin Wu">
+
+<title>Final Individual Report: Subway Crime Trend Over Time – STA 9750 Submission Material</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-1fe81d0376b2c50856e68e651e390326.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe170249a86f5a38a0ddc2409e5665d5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">STA 9750 Submission Material</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On This Page</h2>
+   
+  <ul>
+  <li><a href="#specific-question-motivation" id="toc-specific-question-motivation" class="nav-link active" data-scroll-target="#specific-question-motivation">1. Specific Question &amp; Motivation</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">2. Data Sources</a>
+  <ul class="collapse">
+  <li><a href="#nypd-complaint-data-transit-bureau" id="toc-nypd-complaint-data-transit-bureau" class="nav-link" data-scroll-target="#nypd-complaint-data-transit-bureau">2.1 NYPD Complaint Data (Transit Bureau)</a></li>
+  <li><a href="#mta-daily-ridership" id="toc-mta-daily-ridership" class="nav-link" data-scroll-target="#mta-daily-ridership">2.2 MTA Daily Ridership</a></li>
+  </ul></li>
+  <li><a href="#data-acquisition-cleaning" id="toc-data-acquisition-cleaning" class="nav-link" data-scroll-target="#data-acquisition-cleaning">3. Data Acquisition &amp; Cleaning</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">4. Methodology</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">5. Results</a>
+  <ul class="collapse">
+  <li><a href="#monthly-crime-rate-trend-per-1m-rides" id="toc-monthly-crime-rate-trend-per-1m-rides" class="nav-link" data-scroll-target="#monthly-crime-rate-trend-per-1m-rides">5.1 Monthly Crime Rate Trend (per 1M rides)</a></li>
+  <li><a href="#monthly-subway-crime-counts-raw" id="toc-monthly-subway-crime-counts-raw" class="nav-link" data-scroll-target="#monthly-subway-crime-counts-raw">5.2 Monthly Subway Crime Counts (Raw)</a></li>
+  <li><a href="#smoothed-trend-in-subway-crime-rates" id="toc-smoothed-trend-in-subway-crime-rates" class="nav-link" data-scroll-target="#smoothed-trend-in-subway-crime-rates">5.3 Smoothed Trend in Subway Crime Rates</a></li>
+  </ul></li>
+  <li><a href="#limitations-and-uncertainty" id="toc-limitations-and-uncertainty" class="nav-link" data-scroll-target="#limitations-and-uncertainty">6. Limitations and Uncertainty</a></li>
+  <li><a href="#conclusion-and-next-steps" id="toc-conclusion-and-next-steps" class="nav-link" data-scroll-target="#conclusion-and-next-steps">7. Conclusion and Next Steps</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Individual Report: Subway Crime Trend Over Time</h1>
+<p class="subtitle lead">Specific Question: Has subway crime increased or decreased over time?</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Xiaolin Wu </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Setup ----</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="specific-question-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="specific-question-motivation">1. Specific Question &amp; Motivation</h2>
+<p>This analysis addresses the specific question: <strong>Has subway crime increased or decreased over time in New York City?</strong> Understanding long-term trends in subway crime is critical for evaluating public safety conditions and informing policy decisions related to transit policing and resource allocation.</p>
+<p>Raw crime counts alone can be misleading because subway usage fluctuates substantially over time, particularly during major disruptions such as the COVID-19 pandemic. To address this issue, this analysis examines crime rates normalized by monthly subway ridership, allowing for more meaningful comparisons across periods with different levels of transit activity.</p>
+<p>By focusing on reported complaints handled by the NYPD Transit Bureau, this study aims to capture trends most directly relevant to subway environments. The resulting analysis provides context for evaluating whether observed changes in crime reflect shifts in rider behavior, enforcement strategies, or broader social conditions.</p>
+</section>
+<section id="data-sources" class="level2">
+<h2 class="anchored" data-anchor-id="data-sources">2. Data Sources</h2>
+<section id="nypd-complaint-data-transit-bureau" class="level3">
+<h3 class="anchored" data-anchor-id="nypd-complaint-data-transit-bureau">2.1 NYPD Complaint Data (Transit Bureau)</h3>
+<p>Subway crime incidents were measured using the NYPD Complaint Data provided through NYC Open Data. This dataset contains individual complaint records reported to the NYPD, including information on jurisdiction, report date, and complaint identifiers.</p>
+<p>This analysis focuses specifically on complaints handled by the NYPD Transit Bureau, identified using the jurisdiction descriptor (<code>JURIS_DESC = "N.Y. TRANSIT POLICE"</code>), as a proxy for subway-related crime. Complaint records from 2022 through 2024 were obtained from the historic extract, while 2025 year-to-date data were obtained from a separate current-year dataset.</p>
+<p>Key fields used from this dataset include the complaint identifier (<code>CMPLNT_NUM</code>), report date (<code>RPT_DT</code>), and jurisdiction descriptor (<code>JURIS_DESC</code>).</p>
+</section>
+<section id="mta-daily-ridership" class="level3">
+<h3 class="anchored" data-anchor-id="mta-daily-ridership">2.2 MTA Daily Ridership</h3>
+<p>Subway ridership data were obtained from the MTA Daily Ridership dataset published by New York State. This dataset provides daily estimates of subway usage across the MTA system.</p>
+<p>Daily ridership values were aggregated to the monthly level to align with the temporal resolution of the complaint data. The primary field used for normalization was <code>Subways: Total Estimated Ridership</code>, which captures total daily subway usage across all lines.</p>
+<p>Ridership data spanning the same time period as the complaint data were used to ensure consistent temporal coverage.</p>
+</section>
+</section>
+<section id="data-acquisition-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-acquisition-cleaning">3. Data Acquisition &amp; Cleaning</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crime_fp_hist <span class="ot">&lt;-</span> <span class="st">"../../MTA_crime_trend/data/raw/NYPD_Complaint_Data_Historic_small.csv"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>crime_fp_2025 <span class="ot">&lt;-</span> <span class="st">"../../MTA_crime_trend/data/raw/NYPD_Complaints_2025.csv"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>crime_hist <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  crime_fp_hist,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">CMPLNT_NUM =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="fu">col_guess</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>crime_2025 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  crime_fp_2025,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_col_types =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">CMPLNT_NUM =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="fu">col_guess</span>()</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix type mismatch before binding</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>crime_hist <span class="ot">&lt;-</span> crime_hist <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">HOUSING_PSA =</span> <span class="fu">as.character</span>(HOUSING_PSA))</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>crime_2025 <span class="ot">&lt;-</span> crime_2025 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">HOUSING_PSA =</span> <span class="fu">as.character</span>(HOUSING_PSA))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>crime_raw <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(crime_hist, crime_2025)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>rides_fp <span class="ot">&lt;-</span> <span class="st">"../../MTA_crime_trend/data/raw/MTA_Ridership_Daily.csv"</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>rides_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(rides_fp, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick checks</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(crime_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,086,950
+Columns: 36
+$ CMPLNT_NUM                 &lt;chr&gt; "298701012", "298695144", "298697844", "298…
+$ CMPLNT_FR_DT               &lt;chr&gt; "03/13/2022", "01/01/2022", "03/17/2022", "…
+$ CMPLNT_FR_TM               &lt;time&gt; 00:01:00, 08:00:00, 19:26:00, 17:00:00, 21…
+$ CMPLNT_TO_DT               &lt;chr&gt; "04/30/2022", NA, "12/31/2024", "12/21/2022…
+$ CMPLNT_TO_TM               &lt;chr&gt; "23:59:00", "(null)", "13:07:00", "17:00:00…
+$ ADDR_PCT_CD                &lt;dbl&gt; 113, 44, 17, 43, 121, 104, 115, 43, 88, 14,…
+$ RPT_DT                     &lt;chr&gt; "12/31/2024", "12/31/2024", "12/31/2024", "…
+$ KY_CD                      &lt;dbl&gt; 116, 233, 578, 113, 341, 101, 343, 578, 344…
+$ OFNS_DESC                  &lt;chr&gt; "SEX CRIMES", "SEX CRIMES", "HARRASSMENT 2"…
+$ PD_CD                      &lt;dbl&gt; 177, 175, 638, 729, 349, NA, 478, 638, 101,…
+$ PD_DESC                    &lt;chr&gt; "SEXUAL ABUSE", "SEXUAL ABUSE 3,2", "HARASS…
+$ CRM_ATPT_CPTD_CD           &lt;chr&gt; "COMPLETED", "COMPLETED", "COMPLETED", "COM…
+$ LAW_CAT_CD                 &lt;chr&gt; "FELONY", "MISDEMEANOR", "VIOLATION", "FELO…
+$ BORO_NM                    &lt;chr&gt; "QUEENS", "BRONX", "MANHATTAN", "BRONX", "S…
+$ LOC_OF_OCCUR_DESC          &lt;chr&gt; "INSIDE", "INSIDE", "INSIDE", "INSIDE", "FR…
+$ PREM_TYP_DESC              &lt;chr&gt; "RESIDENCE-HOUSE", "RESIDENCE - APT. HOUSE"…
+$ JURIS_DESC                 &lt;chr&gt; "N.Y. POLICE DEPT", "N.Y. POLICE DEPT", "N.…
+$ JURISDICTION_CODE          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 2, 2…
+$ PARKS_NM                   &lt;chr&gt; "(null)", "(null)", "(null)", "(null)", "(n…
+$ HADEVELOPT                 &lt;chr&gt; "(null)", "(null)", "(null)", "(null)", "(n…
+$ HOUSING_PSA                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ X_COORD_CD                 &lt;dbl&gt; 1046315, 1006490, 991006, 1017862, 939223, …
+$ Y_COORD_CD                 &lt;dbl&gt; 187088, 244533, 211486, 241678, 160902, 204…
+$ SUSP_AGE_GROUP             &lt;chr&gt; "25-44", "45-64", "25-44", "UNKNOWN", "UNKN…
+$ SUSP_RACE                  &lt;chr&gt; "BLACK", "BLACK", "ASIAN / PACIFIC ISLANDER…
+$ SUSP_SEX                   &lt;chr&gt; "M", "M", "M", "U", "U", "(null)", "M", "M"…
+$ TRANSIT_DISTRICT           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 20, NA, NA, 4, NA, …
+$ Latitude                   &lt;dbl&gt; 40.67998, 40.83784, 40.74716, 40.82997, 40.…
+$ Longitude                  &lt;dbl&gt; -73.77623, -73.91963, -73.97562, -73.87854,…
+$ Lat_Lon                    &lt;chr&gt; "(40.6799807384666, -73.7762339071953)", "(…
+$ PATROL_BORO                &lt;chr&gt; "PATROL BORO QUEENS SOUTH", "PATROL BORO BR…
+$ STATION_NAME               &lt;chr&gt; "(null)", "(null)", "(null)", "(null)", "(n…
+$ VIC_AGE_GROUP              &lt;chr&gt; "&lt;18", "&lt;18", "25-44", "45-64", "45-64", "&lt;…
+$ VIC_RACE                   &lt;chr&gt; "BLACK", "BLACK", "WHITE", "BLACK HISPANIC"…
+$ VIC_SEX                    &lt;chr&gt; "M", "F", "F", "F", "F", "M", "D", "F", "F"…
+$ `New Georeferenced Column` &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(rides_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,776
+Columns: 15
+$ Date                                                      &lt;chr&gt; "03/01/2020"…
+$ `Subways: Total Estimated Ridership`                      &lt;dbl&gt; 2212965, 532…
+$ `Subways: % of Comparable Pre-Pandemic Day`               &lt;chr&gt; "97%", "96%"…
+$ `Buses: Total Estimated Ridership`                        &lt;dbl&gt; 984908, 2209…
+$ `Buses: % of Comparable Pre-Pandemic Day`                 &lt;chr&gt; "99%", "99%"…
+$ `LIRR: Total Estimated Ridership`                         &lt;dbl&gt; 86790, 32156…
+$ `LIRR: % of Comparable Pre-Pandemic Day`                  &lt;chr&gt; "100%", "103…
+$ `Metro-North: Total Estimated Ridership`                  &lt;dbl&gt; 55825, 18070…
+$ `Metro-North: % of Comparable Pre-Pandemic Day`           &lt;chr&gt; "59%", "66%"…
+$ `Access-A-Ride: Total Scheduled Trips`                    &lt;dbl&gt; 19922, 30338…
+$ `Access-A-Ride: % of Comparable Pre-Pandemic Day`         &lt;chr&gt; "113%", "102…
+$ `Bridges and Tunnels: Total Traffic`                      &lt;dbl&gt; 786960, 8746…
+$ `Bridges and Tunnels: % of Comparable Pre-Pandemic Day`   &lt;chr&gt; "98%", "95%"…
+$ `Staten Island Railway: Total Estimated Ridership`        &lt;dbl&gt; 1636, 17140,…
+$ `Staten Island Railway: % of Comparable Pre-Pandemic Day` &lt;chr&gt; "52%", "107%…</code></pre>
+</div>
+</div>
+<p>When combining historic and 2025 complaint extracts, several identifier fields were stored with inconsistent types across files (e.g., HOUSING_PSA). These columns were coerced to a common type prior to row-binding to ensure consistent ingestion.</p>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">4. Methodology</h2>
+<p>The analysis proceeds in several stages to assess changes in subway crime over time.</p>
+<p>First, NYPD complaint records were filtered to include only incidents handled by the Transit Bureau, isolating complaints most directly associated with subway environments. Report dates were parsed and converted to a monthly time scale to support temporal aggregation.</p>
+<p>Second, complaint counts were aggregated by month to produce a monthly measure of reported subway crime. In parallel, MTA daily ridership data were aggregated to monthly totals to ensure alignment with the crime data.</p>
+<p>Third, monthly crime rates were computed by normalizing complaint counts by total monthly subway ridership, expressed as crimes per one million rides. This normalization allows for meaningful comparisons across periods with substantially different levels of subway usage.</p>
+<p>Finally, time-series visualizations were generated to examine trends in both raw complaint counts and normalized crime rates. Key policy and contextual markers, including the onset of the COVID-19 pandemic and the implementation of the 2022 Subway Safety Plan, were overlaid to aid interpretation.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">5. Results</h2>
+<p>This section presents the main empirical findings related to the specific question of whether subway crime has increased or decreased over time. Results are shown using both normalized crime rates and raw complaint counts to distinguish changes in reported crime from changes driven by ridership levels.</p>
+<section id="monthly-crime-rate-trend-per-1m-rides" class="level3">
+<h3 class="anchored" data-anchor-id="monthly-crime-rate-trend-per-1m-rides">5.1 Monthly Crime Rate Trend (per 1M rides)</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>crime_subway <span class="ot">&lt;-</span> crime_raw <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(JURIS_DESC <span class="sc">==</span> <span class="st">"N.Y. TRANSIT POLICE"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">date =</span> <span class="fu">mdy</span>(RPT_DT),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">year_month =</span> <span class="fu">floor_date</span>(date, <span class="st">"month"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(year_month) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">total_crimes =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>rides <span class="ot">&lt;-</span> rides_raw <span class="sc">%&gt;%</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="at">date =</span> <span class="fu">mdy</span>(Date),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="at">year_month =</span> <span class="fu">floor_date</span>(date, <span class="st">"month"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(year_month) <span class="sc">%&gt;%</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">subway_rides =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Subways: Total Estimated Ridership</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">left_join</span>(rides, crime_subway, <span class="at">by =</span> <span class="st">"year_month"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="at">total_crimes =</span> <span class="fu">replace_na</span>(total_crimes, <span class="dv">0</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="at">crimes_per_million =</span> (total_crimes <span class="sc">/</span> subway_rides) <span class="sc">*</span> <span class="fl">1e6</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Remove incomplete months (very low ridership can inflate rates) ----</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>trend_clean <span class="ot">&lt;-</span> trend <span class="sc">%&gt;%</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(subway_rides) <span class="sc">&amp;</span> subway_rides <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_month <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2022-01-01"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(subway_rides <span class="sc">&gt;=</span> <span class="fu">quantile</span>(subway_rides, <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>p_rate <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trend_clean, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> crimes_per_million)) <span class="sc">+</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-15"</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2022-02-21"</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="at">title =</span> <span class="st">"Subway Crime Rate per 1M Rides"</span>,</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="at">subtitle =</span> <span class="st">"NYPD Transit Police complaints normalized by MTA monthly ridership"</span>,</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="at">y =</span> <span class="st">"Crimes per 1,000,000 rides"</span>,</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="at">caption =</span> <span class="st">"Sources: NYC Open Data (NYPD Complaints), MTA Daily Ridership"</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>p_rate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="xiaolin_sq_subway_crime_trend_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After normalizing by ridership, the subway crime rate shows a gradual upward trend from 2022 through 2024. This suggests that changes in ridership volumes alone do not fully explain the observed pattern. Importantly, the final incomplete reporting month(s) were excluded to avoid artificially inflated rates caused by partial ridership totals.</p>
+</section>
+<section id="monthly-subway-crime-counts-raw" class="level3">
+<h3 class="anchored" data-anchor-id="monthly-subway-crime-counts-raw">5.2 Monthly Subway Crime Counts (Raw)</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_count <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trend_clean, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> total_crimes)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-15"</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2022-02-21"</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Monthly Subway Crime Complaints (Raw Counts)"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"NYPD Transit Police complaints aggregated by month"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of complaints"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: NYC Open Data (NYPD Complaints)"</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>p_count</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="xiaolin_sq_subway_crime_trend_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Monthly complaint counts also increase over the same period, though the magnitude of change is smaller than the rate-based trend. Together, these visuals indicate that both higher complaint volumes and ridership dynamics contribute to the overall pattern, reinforcing the value of presenting both counts and normalized rates.</p>
+</section>
+<section id="smoothed-trend-in-subway-crime-rates" class="level3">
+<h3 class="anchored" data-anchor-id="smoothed-trend-in-subway-crime-rates">5.3 Smoothed Trend in Subway Crime Rates</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p_smooth <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(trend_clean, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> crimes_per_million)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"gray40"</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"loess"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">span =</span> <span class="fl">0.4</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#E69F00"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.4</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2022-02-21"</span>), <span class="at">linetype =</span> <span class="st">"dotted"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Smoothed Trend in Subway Crime Rates"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"LOESS smoothing applied to monthly crime rates per 1M rides"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Month"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Crimes per 1,000,000 rides"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Source: NYC Open Data (NYPD Complaints), MTA Daily Ridership"</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>p_smooth</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="xiaolin_sq_subway_crime_trend_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To reduce the influence of month-to-month volatility, a smoothed trend was estimated using LOESS. The smoothed curve reinforces the pattern observed in the raw rate series, indicating a sustained upward trajectory in subway crime rates beginning in late 2023. This visualization is intended as a complementary view and does not replace the primary rate and count-based analyses.</p>
+</section>
+</section>
+<section id="limitations-and-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-and-uncertainty">6. Limitations and Uncertainty</h2>
+<p>Several limitations should be considered when interpreting the results of this analysis.</p>
+<p>First, the analysis relies on reported NYPD complaint data, which may not fully capture the true incidence of crime on the subway system. Changes in reporting behavior, enforcement practices, or public willingness to file complaints over time could influence observed trends independently of underlying crime levels.</p>
+<p>Second, while normalizing complaint counts by ridership helps account for large fluctuations in subway usage, ridership estimates themselves are subject to uncertainty. In particular, the most recent months of 2025 reflect year-to-date data and may be incomplete at the time of reporting. To mitigate the influence of artificially inflated rates caused by partial ridership totals, months with unusually low ridership values were excluded from the primary analysis.</p>
+<p>Third, this analysis aggregates crime incidents at the system-wide monthly level and does not account for variation across stations, boroughs, or time of day. As a result, localized trends or short-term fluctuations may be obscured by aggregation.</p>
+<p>Finally, the analysis is descriptive and does not attempt to establish causal relationships between policy interventions and observed changes in crime. While key contextual markers are included for interpretive purposes, additional data and methodological approaches would be required to rigorously assess causal impacts.</p>
+</section>
+<section id="conclusion-and-next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-and-next-steps">7. Conclusion and Next Steps</h2>
+<p>This analysis examined whether subway crime has increased or decreased over time by combining NYPD Transit Bureau complaint data with MTA ridership statistics. The results indicate that both raw complaint counts and crime rates normalized by ridership increased from 2022 through 2024, suggesting that rising crime rates cannot be explained solely by changes in subway usage.</p>
+<p>While short-term fluctuations are evident, the overall pattern points to a sustained upward trend beginning in late 2023 and continuing through much of 2024. The consistency between raw counts and normalized rates strengthens confidence in this finding.</p>
+<p>Future work could extend this analysis by incorporating spatial information to examine station-level or borough-level variation in subway crime trends. Additional disaggregation by crime type or time of day may also help identify specific drivers of the observed increase. Finally, integrating external contextual data—such as staffing levels, service changes, or socioeconomic indicators—could support more rigorous evaluation of policy interventions aimed at improving subway safety.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/XiaolinWu01\.github\.io\/STA9750-2025-FALL\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

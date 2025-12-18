@@ -1,0 +1,234 @@
+---
+title: "Final Individual Report: Subway Crime Trend Over Time"
+subtitle: "Specific Question: Has subway crime increased or decreased over time?"
+author: "Xiaolin Wu"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+execute:
+  warning: false
+  message: false
+---
+
+```{r}
+# ---- Setup ----
+library(tidyverse)
+library(lubridate)
+library(scales)
+```
+
+## 1. Specific Question & Motivation
+This analysis addresses the specific question: **Has subway crime increased or decreased over time in New York City?**
+Understanding long-term trends in subway crime is critical for evaluating public safety conditions and informing policy decisions related to transit policing and resource allocation.
+
+Raw crime counts alone can be misleading because subway usage fluctuates substantially over time, particularly during major disruptions such as the COVID-19 pandemic. To address this issue, this analysis examines crime rates normalized by monthly subway ridership, allowing for more meaningful comparisons across periods with different levels of transit activity.
+
+By focusing on reported complaints handled by the NYPD Transit Bureau, this study aims to capture trends most directly relevant to subway environments. The resulting analysis provides context for evaluating whether observed changes in crime reflect shifts in rider behavior, enforcement strategies, or broader social conditions.
+
+## 2. Data Sources
+
+### 2.1 NYPD Complaint Data (Transit Bureau)
+
+Subway crime incidents were measured using the NYPD Complaint Data provided through NYC Open Data. This dataset contains individual complaint records reported to the NYPD, including information on jurisdiction, report date, and complaint identifiers.
+
+This analysis focuses specifically on complaints handled by the NYPD Transit Bureau, identified using the jurisdiction descriptor (`JURIS_DESC = "N.Y. TRANSIT POLICE"`), as a proxy for subway-related crime. Complaint records from 2022 through 2024 were obtained from the historic extract, while 2025 year-to-date data were obtained from a separate current-year dataset.
+
+Key fields used from this dataset include the complaint identifier (`CMPLNT_NUM`), report date (`RPT_DT`), and jurisdiction descriptor (`JURIS_DESC`).
+
+### 2.2 MTA Daily Ridership
+
+Subway ridership data were obtained from the MTA Daily Ridership dataset published by New York State. This dataset provides daily estimates of subway usage across the MTA system.
+
+Daily ridership values were aggregated to the monthly level to align with the temporal resolution of the complaint data. The primary field used for normalization was `Subways: Total Estimated Ridership`, which captures total daily subway usage across all lines.
+
+Ridership data spanning the same time period as the complaint data were used to ensure consistent temporal coverage.
+
+
+## 3. Data Acquisition & Cleaning
+
+```{r}
+crime_fp_hist <- "../../MTA_crime_trend/data/raw/NYPD_Complaint_Data_Historic_small.csv"
+crime_fp_2025 <- "../../MTA_crime_trend/data/raw/NYPD_Complaints_2025.csv"
+
+crime_hist <- read_csv(
+  crime_fp_hist,
+  show_col_types = FALSE,
+  col_types = cols(
+    CMPLNT_NUM = col_character(),
+    .default = col_guess()
+  )
+)
+
+crime_2025 <- read_csv(
+  crime_fp_2025,
+  show_col_types = FALSE,
+  col_types = cols(
+    CMPLNT_NUM = col_character(),
+    .default = col_guess()
+  )
+)
+
+# Fix type mismatch before binding
+crime_hist <- crime_hist %>% mutate(HOUSING_PSA = as.character(HOUSING_PSA))
+crime_2025 <- crime_2025 %>% mutate(HOUSING_PSA = as.character(HOUSING_PSA))
+
+crime_raw <- bind_rows(crime_hist, crime_2025)
+
+rides_fp <- "../../MTA_crime_trend/data/raw/MTA_Ridership_Daily.csv"
+rides_raw <- read_csv(rides_fp, show_col_types = FALSE)
+
+# Quick checks
+
+glimpse(crime_raw)
+glimpse(rides_raw)
+```
+When combining historic and 2025 complaint extracts, several identifier fields were stored with inconsistent types across files (e.g., HOUSING_PSA). These columns were coerced to a common type prior to row-binding to ensure consistent ingestion.
+
+## 4. Methodology
+
+The analysis proceeds in several stages to assess changes in subway crime over time.
+
+First, NYPD complaint records were filtered to include only incidents handled by the Transit Bureau, isolating complaints most directly associated with subway environments. Report dates were parsed and converted to a monthly time scale to support temporal aggregation.
+
+Second, complaint counts were aggregated by month to produce a monthly measure of reported subway crime. In parallel, MTA daily ridership data were aggregated to monthly totals to ensure alignment with the crime data.
+
+Third, monthly crime rates were computed by normalizing complaint counts by total monthly subway ridership, expressed as crimes per one million rides. This normalization allows for meaningful comparisons across periods with substantially different levels of subway usage.
+
+Finally, time-series visualizations were generated to examine trends in both raw complaint counts and normalized crime rates. Key policy and contextual markers, including the onset of the COVID-19 pandemic and the implementation of the 2022 Subway Safety Plan, were overlaid to aid interpretation.
+
+
+## 5. Results
+
+This section presents the main empirical findings related to the specific question of whether subway crime has increased or decreased over time. Results are shown using both normalized crime rates and raw complaint counts to distinguish changes in reported crime from changes driven by ridership levels.
+
+### 5.1 Monthly Crime Rate Trend (per 1M rides)
+
+```{r}
+crime_subway <- crime_raw %>%
+filter(JURIS_DESC == "N.Y. TRANSIT POLICE") %>%
+mutate(
+date = mdy(RPT_DT),
+year_month = floor_date(date, "month")
+) %>%
+group_by(year_month) %>%
+summarise(total_crimes = n(), .groups = "drop")
+
+rides <- rides_raw %>%
+mutate(
+date = mdy(Date),
+year_month = floor_date(date, "month")
+) %>%
+group_by(year_month) %>%
+summarise(
+subway_rides = sum(`Subways: Total Estimated Ridership`, na.rm = TRUE),
+.groups = "drop"
+)
+
+trend <- left_join(rides, crime_subway, by = "year_month") %>%
+mutate(
+total_crimes = replace_na(total_crimes, 0),
+crimes_per_million = (total_crimes / subway_rides) * 1e6
+)
+
+# ---- Remove incomplete months (very low ridership can inflate rates) ----
+trend_clean <- trend %>%
+  filter(!is.na(subway_rides) & subway_rides > 0) %>%
+  filter(year_month >= as.Date("2022-01-01")) %>%
+  filter(subway_rides >= quantile(subway_rides, 0.05, na.rm = TRUE))  
+
+p_rate <- ggplot(trend_clean, aes(x = year_month, y = crimes_per_million)) +
+geom_line(linewidth = 1.1) +
+geom_point(size = 2) +
+geom_vline(xintercept = as.Date("2020-03-15"), linetype = "dashed") +
+geom_vline(xintercept = as.Date("2022-02-21"), linetype = "dotted") +
+labs(
+title = "Subway Crime Rate per 1M Rides",
+subtitle = "NYPD Transit Police complaints normalized by MTA monthly ridership",
+x = "Month",
+y = "Crimes per 1,000,000 rides",
+caption = "Sources: NYC Open Data (NYPD Complaints), MTA Daily Ridership"
+) +
+theme_minimal(base_size = 13) +
+theme(axis.text.x = element_text(angle = 45, hjust = 1),
+plot.title = element_text(face = "bold"))
+
+p_rate
+```
+After normalizing by ridership, the subway crime rate shows a gradual upward trend from 2022 through 2024. This suggests that changes in ridership volumes alone do not fully explain the observed pattern. Importantly, the final incomplete reporting month(s) were excluded to avoid artificially inflated rates caused by partial ridership totals.
+
+### 5.2 Monthly Subway Crime Counts (Raw)
+```{r}
+p_count <- ggplot(trend_clean, aes(x = year_month, y = total_crimes)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2) +
+  geom_vline(xintercept = as.Date("2020-03-15"), linetype = "dashed") +
+  geom_vline(xintercept = as.Date("2022-02-21"), linetype = "dotted") +
+  labs(
+    title = "Monthly Subway Crime Complaints (Raw Counts)",
+    subtitle = "NYPD Transit Police complaints aggregated by month",
+    x = "Month",
+    y = "Number of complaints",
+    caption = "Source: NYC Open Data (NYPD Complaints)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(face = "bold"))
+
+p_count
+
+```
+Monthly complaint counts also increase over the same period, though the magnitude of change is smaller than the rate-based trend. Together, these visuals indicate that both higher complaint volumes and ridership dynamics contribute to the overall pattern, reinforcing the value of presenting both counts and normalized rates.
+
+### 5.3 Smoothed Trend in Subway Crime Rates
+```{r}
+p_smooth <- ggplot(trend_clean, aes(x = year_month, y = crimes_per_million)) +
+  geom_line(color = "gray40", linewidth = 0.8, alpha = 0.7) +
+  geom_point(color = "gray40", size = 1.5, alpha = 0.7) +
+  geom_smooth(
+    method = "loess",
+    span = 0.4,
+    se = FALSE,
+    color = "#E69F00",
+    linewidth = 1.4
+  ) +
+  geom_vline(xintercept = as.Date("2022-02-21"), linetype = "dotted") +
+  labs(
+    title = "Smoothed Trend in Subway Crime Rates",
+    subtitle = "LOESS smoothing applied to monthly crime rates per 1M rides",
+    x = "Month",
+    y = "Crimes per 1,000,000 rides",
+    caption = "Source: NYC Open Data (NYPD Complaints), MTA Daily Ridership"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(face = "bold")
+  )
+
+p_smooth
+```
+To reduce the influence of month-to-month volatility, a smoothed trend was estimated using LOESS. The smoothed curve reinforces the pattern observed in the raw rate series, indicating a sustained upward trajectory in subway crime rates beginning in late 2023. This visualization is intended as a complementary view and does not replace the primary rate and count-based analyses.
+
+## 6. Limitations and Uncertainty
+
+Several limitations should be considered when interpreting the results of this analysis.
+
+First, the analysis relies on reported NYPD complaint data, which may not fully capture the true incidence of crime on the subway system. Changes in reporting behavior, enforcement practices, or public willingness to file complaints over time could influence observed trends independently of underlying crime levels.
+
+Second, while normalizing complaint counts by ridership helps account for large fluctuations in subway usage, ridership estimates themselves are subject to uncertainty. In particular, the most recent months of 2025 reflect year-to-date data and may be incomplete at the time of reporting. To mitigate the influence of artificially inflated rates caused by partial ridership totals, months with unusually low ridership values were excluded from the primary analysis.
+
+Third, this analysis aggregates crime incidents at the system-wide monthly level and does not account for variation across stations, boroughs, or time of day. As a result, localized trends or short-term fluctuations may be obscured by aggregation.
+
+Finally, the analysis is descriptive and does not attempt to establish causal relationships between policy interventions and observed changes in crime. While key contextual markers are included for interpretive purposes, additional data and methodological approaches would be required to rigorously assess causal impacts.
+
+
+## 7. Conclusion and Next Steps
+
+This analysis examined whether subway crime has increased or decreased over time by combining NYPD Transit Bureau complaint data with MTA ridership statistics. The results indicate that both raw complaint counts and crime rates normalized by ridership increased from 2022 through 2024, suggesting that rising crime rates cannot be explained solely by changes in subway usage.
+
+While short-term fluctuations are evident, the overall pattern points to a sustained upward trend beginning in late 2023 and continuing through much of 2024. The consistency between raw counts and normalized rates strengthens confidence in this finding.
+
+Future work could extend this analysis by incorporating spatial information to examine station-level or borough-level variation in subway crime trends. Additional disaggregation by crime type or time of day may also help identify specific drivers of the observed increase. Finally, integrating external contextual data—such as staffing levels, service changes, or socioeconomic indicators—could support more rigorous evaluation of policy interventions aimed at improving subway safety.

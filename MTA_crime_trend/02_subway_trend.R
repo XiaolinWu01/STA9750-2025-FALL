@@ -8,30 +8,31 @@ crime_fp <- "data/raw/NYPD_Complaints_2025.csv"
 rides_fp <- "data/raw/MTA_Ridership_Daily.csv"
 
 # ---- 2. Load raw data ----
-crime_raw <- read_csv(crime_fp, show_col_types = FALSE)
+crime_raw <- read_csv(
+  crime_fp,
+  show_col_types = FALSE,
+  col_types = cols(
+    CMPLNT_NUM = col_character(),  
+    .default = col_guess()
+  )
+)
 rides_raw <- read_csv(rides_fp, show_col_types = FALSE)
 
 # ---- 3. Filter subway-related crimes ----
 crime_subway <- crime_raw %>%
   filter(JURIS_DESC == "N.Y. TRANSIT POLICE") %>%
   mutate(
-    date = as.Date(RPT_DT, format = "%m/%d/%Y"),
+    date = mdy(RPT_DT),                    # 更稳：自动识别 mm/dd/yyyy
     year_month = floor_date(date, "month")
   ) %>%
   group_by(year_month) %>%
   summarise(total_crimes = n(), .groups = "drop")
 
-crime_subway <- crime_subway %>%
-  mutate(year_month = as.Date(year_month))
-
-rides <- rides %>%
-  mutate(year_month = as.Date(year_month))
-
 # ---- 4. Clean and summarize MTA ridership ----
 rides <- rides_raw %>%
   mutate(
-    date = as.Date(Date, format = "%m/%d/%Y"),        # ✅ 修正日期格式
-    year_month = floor_date(date, "month")            # ✅ 不需要再次 as.Date
+    date = mdy(Date),
+    year_month = floor_date(date, "month")
   ) %>%
   group_by(year_month) %>%
   summarise(
@@ -41,7 +42,10 @@ rides <- rides_raw %>%
 
 # ---- 5. Combine datasets ----
 trend <- left_join(rides, crime_subway, by = "year_month") %>%
-  mutate(crimes_per_million = (total_crimes / subway_rides) * 1e6)
+  mutate(
+    total_crimes = replace_na(total_crimes, 0),              # 防止 NA
+    crimes_per_million = (total_crimes / subway_rides) * 1e6
+  )
 
 
 # ---- 6. Plot trend ----
