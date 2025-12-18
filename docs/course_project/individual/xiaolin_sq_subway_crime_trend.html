@@ -141,6 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#nypd-complaint-data-transit-bureau" id="toc-nypd-complaint-data-transit-bureau" class="nav-link" data-scroll-target="#nypd-complaint-data-transit-bureau">2.1 NYPD Complaint Data (Transit Bureau)</a></li>
   <li><a href="#mta-daily-ridership" id="toc-mta-daily-ridership" class="nav-link" data-scroll-target="#mta-daily-ridership">2.2 MTA Daily Ridership</a></li>
+  <li><a href="#measurement-and-interpretation-considerations" id="toc-measurement-and-interpretation-considerations" class="nav-link" data-scroll-target="#measurement-and-interpretation-considerations">Measurement and Interpretation Considerations</a></li>
   </ul></li>
   <li><a href="#data-acquisition-cleaning" id="toc-data-acquisition-cleaning" class="nav-link" data-scroll-target="#data-acquisition-cleaning">3. Data Acquisition &amp; Cleaning</a></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">4. Methodology</a></li>
@@ -149,8 +150,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#monthly-crime-rate-trend-per-1m-rides" id="toc-monthly-crime-rate-trend-per-1m-rides" class="nav-link" data-scroll-target="#monthly-crime-rate-trend-per-1m-rides">5.1 Monthly Crime Rate Trend (per 1M rides)</a></li>
   <li><a href="#monthly-subway-crime-counts-raw" id="toc-monthly-subway-crime-counts-raw" class="nav-link" data-scroll-target="#monthly-subway-crime-counts-raw">5.2 Monthly Subway Crime Counts (Raw)</a></li>
   <li><a href="#smoothed-trend-in-subway-crime-rates" id="toc-smoothed-trend-in-subway-crime-rates" class="nav-link" data-scroll-target="#smoothed-trend-in-subway-crime-rates">5.3 Smoothed Trend in Subway Crime Rates</a></li>
+  <li><a href="#interpreting-changes-in-subway-crime-rates" id="toc-interpreting-changes-in-subway-crime-rates" class="nav-link" data-scroll-target="#interpreting-changes-in-subway-crime-rates">Interpreting Changes in Subway Crime Rates</a></li>
   </ul></li>
-  <li><a href="#limitations-and-uncertainty" id="toc-limitations-and-uncertainty" class="nav-link" data-scroll-target="#limitations-and-uncertainty">6. Limitations and Uncertainty</a></li>
+  <li><a href="#limitations-and-uncertainty" id="toc-limitations-and-uncertainty" class="nav-link" data-scroll-target="#limitations-and-uncertainty">6. Limitations and Uncertainty</a>
+  <ul class="collapse">
+  <li><a href="#alternative-explanations-and-robustness" id="toc-alternative-explanations-and-robustness" class="nav-link" data-scroll-target="#alternative-explanations-and-robustness">Alternative Explanations and Robustness</a></li>
+  </ul></li>
   <li><a href="#conclusion-and-next-steps" id="toc-conclusion-and-next-steps" class="nav-link" data-scroll-target="#conclusion-and-next-steps">7. Conclusion and Next Steps</a></li>
   </ul>
 </nav>
@@ -198,6 +203,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This analysis addresses the specific question: <strong>Has subway crime increased or decreased over time in New York City?</strong> Understanding long-term trends in subway crime is critical for evaluating public safety conditions and informing policy decisions related to transit policing and resource allocation.</p>
 <p>Raw crime counts alone can be misleading because subway usage fluctuates substantially over time, particularly during major disruptions such as the COVID-19 pandemic. To address this issue, this analysis examines crime rates normalized by monthly subway ridership, allowing for more meaningful comparisons across periods with different levels of transit activity.</p>
 <p>By focusing on reported complaints handled by the NYPD Transit Bureau, this study aims to capture trends most directly relevant to subway environments. The resulting analysis provides context for evaluating whether observed changes in crime reflect shifts in rider behavior, enforcement strategies, or broader social conditions.</p>
+<p>Why Ridership-Normalized Crime Measures Matter</p>
+<p>Evaluating subway crime over time requires careful consideration of how crime is measured. Raw counts of reported incidents provide information about volume, but they do not capture changes in risk experienced by individual riders. This limitation becomes especially important when transit usage fluctuates sharply, as occurred during and after the COVID-19 pandemic.</p>
+<p>Following 2020, subway ridership in New York City declined dramatically and then recovered unevenly across subsequent years. During this period, a stable number of reported crimes could imply rising risk per trip, while increasing complaint counts might still correspond to lower per-rider exposure. Without accounting for ridership levels, it is difficult to determine whether observed changes reflect shifts in safety conditions or changes in passenger volume.</p>
+<p>Normalizing crime counts by ridership addresses this challenge by reframing crime as a rate rather than a total. A rate-based approach allows trends to be interpreted in terms of individual exposure to risk rather than aggregate system activity. This distinction is particularly relevant for policy evaluation, as safety interventions aim to reduce risk per rider rather than simply reduce total complaints.</p>
+<p>For these reasons, this analysis focuses on crime rates expressed per one million subway rides. By doing so, the specific question of whether subway crime has increased or decreased over time can be evaluated in a manner that aligns more closely with rider experience and public safety concerns.</p>
 </section>
 <section id="data-sources" class="level2">
 <h2 class="anchored" data-anchor-id="data-sources">2. Data Sources</h2>
@@ -212,6 +222,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Subway ridership data were obtained from the MTA Daily Ridership dataset published by New York State. This dataset provides daily estimates of subway usage across the MTA system.</p>
 <p>Daily ridership values were aggregated to the monthly level to align with the temporal resolution of the complaint data. The primary field used for normalization was <code>Subways: Total Estimated Ridership</code>, which captures total daily subway usage across all lines.</p>
 <p>Ridership data spanning the same time period as the complaint data were used to ensure consistent temporal coverage.</p>
+</section>
+<section id="measurement-and-interpretation-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-and-interpretation-considerations">Measurement and Interpretation Considerations</h3>
+<p>Although NYPD complaint data provide the most comprehensive public record of reported crime, these data represent reported incidents rather than true underlying crime rates. Reporting behavior may vary over time in response to changes in public awareness, policing practices, or social conditions. As a result, observed trends in complaints may reflect shifts in reporting as well as changes in criminal activity.</p>
+<p>Transit Bureau complaints are used in this analysis as a proxy for subway-related crime. This classification captures incidents handled within the subway system but does not distinguish between crime types or severity. Minor offenses and serious incidents are treated equivalently in the aggregate count, which may mask variation in the nature of reported crime over time.</p>
+<p>Ridership data introduce additional sources of uncertainty. MTA ridership figures are estimates rather than precise counts and may be revised as additional information becomes available. Measurement error in ridership affects the denominator of the crime rate and can influence rate estimates, particularly in periods with unusually low or volatile subway usage.</p>
+<p>Despite these limitations, combining complaint data with ridership estimates provides a more informative measure of safety conditions than raw counts alone. Interpreting the results requires recognizing that crime rates reflect reported incidents per ride rather than definitive measures of criminal behavior.</p>
 </section>
 </section>
 <section id="data-acquisition-cleaning" class="level2">
@@ -469,6 +486,13 @@ $ `Staten Island Railway: % of Comparable Pre-Pandemic Day` &lt;chr&gt; "52%", "
 </div>
 <p>To reduce the influence of month-to-month volatility, a smoothed trend was estimated using LOESS. The smoothed curve reinforces the pattern observed in the raw rate series, indicating a sustained upward trajectory in subway crime rates beginning in late 2023. This visualization is intended as a complementary view and does not replace the primary rate and count-based analyses.</p>
 </section>
+<section id="interpreting-changes-in-subway-crime-rates" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-changes-in-subway-crime-rates">Interpreting Changes in Subway Crime Rates</h3>
+<p>The observed increase in subway crime rates after late 2023 raises important interpretive questions. An increase in reported crime per rider may reflect changes in underlying safety conditions, but it may also be influenced by shifts in rider behavior or enforcement practices. Distinguishing among these explanations requires caution.</p>
+<p>One possible interpretation is that the post-2023 increase reflects a genuine deterioration in safety conditions experienced by riders. This interpretation is supported by the persistence of the trend after normalizing for ridership. If rising crime rates were driven primarily by increased subway usage, normalization would be expected to attenuate the observed increase.</p>
+<p>Alternative explanations remain plausible. Changes in policing intensity or reporting practices could increase the number of recorded complaints without a corresponding increase in actual crime. Shifts in the composition of riders, such as changes in trip purpose or travel times, may also influence exposure to risk.</p>
+<p>For these reasons, the results should be interpreted as descriptive rather than causal. The analysis identifies a sustained increase in reported crime risk per trip but does not attribute this change to specific mechanisms. Additional data would be required to isolate the drivers of the observed trend.</p>
+</section>
 </section>
 <section id="limitations-and-uncertainty" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-and-uncertainty">6. Limitations and Uncertainty</h2>
@@ -477,12 +501,20 @@ $ `Staten Island Railway: % of Comparable Pre-Pandemic Day` &lt;chr&gt; "52%", "
 <p>Second, while normalizing complaint counts by ridership helps account for large fluctuations in subway usage, ridership estimates themselves are subject to uncertainty. In particular, the most recent months of 2025 reflect year-to-date data and may be incomplete at the time of reporting. To mitigate the influence of artificially inflated rates caused by partial ridership totals, months with unusually low ridership values were excluded from the primary analysis.</p>
 <p>Third, this analysis aggregates crime incidents at the system-wide monthly level and does not account for variation across stations, boroughs, or time of day. As a result, localized trends or short-term fluctuations may be obscured by aggregation.</p>
 <p>Finally, the analysis is descriptive and does not attempt to establish causal relationships between policy interventions and observed changes in crime. While key contextual markers are included for interpretive purposes, additional data and methodological approaches would be required to rigorously assess causal impacts.</p>
+<section id="alternative-explanations-and-robustness" class="level3">
+<h3 class="anchored" data-anchor-id="alternative-explanations-and-robustness">Alternative Explanations and Robustness</h3>
+<p>Several alternative explanations may contribute to the observed increase in subway crime rates. Reporting behavior may have changed over time as public concern about subway safety increased. Heightened attention to crime could lead to higher reporting rates even if underlying criminal activity remained constant.</p>
+<p>Changes in enforcement practices may also influence complaint data. Increased police presence or targeted enforcement campaigns could raise the likelihood that incidents are recorded as official complaints. Conversely, periods of reduced enforcement may suppress reported crime without improving actual safety.</p>
+<p>The composition of subway ridership may further affect observed rates. Riders returning to the system after the pandemic may differ systematically from pre-pandemic riders in terms of travel patterns or exposure to risk. These compositional changes are not captured in aggregate ridership counts.</p>
+<p>While these factors complicate interpretation, the consistency of the rate-based increase across multiple months supports the conclusion that the observed pattern is not driven by a single anomalous period. Future analyses incorporating spatial detail, crime type, or enforcement data could further assess the robustness of these findings.</p>
+</section>
 </section>
 <section id="conclusion-and-next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion-and-next-steps">7. Conclusion and Next Steps</h2>
 <p>This analysis examined whether subway crime has increased or decreased over time by combining NYPD Transit Bureau complaint data with MTA ridership statistics. The results indicate that both raw complaint counts and crime rates normalized by ridership increased from 2022 through 2024, suggesting that rising crime rates cannot be explained solely by changes in subway usage.</p>
-<p>While short-term fluctuations are evident, the overall pattern points to a sustained upward trend beginning in late 2023 and continuing through much of 2024. The consistency between raw counts and normalized rates strengthens confidence in this finding.</p>
-<p>Future work could extend this analysis by incorporating spatial information to examine station-level or borough-level variation in subway crime trends. Additional disaggregation by crime type or time of day may also help identify specific drivers of the observed increase. Finally, integrating external contextual data—such as staffing levels, service changes, or socioeconomic indicators—could support more rigorous evaluation of policy interventions aimed at improving subway safety.</p>
+<p>While short-term fluctuations are evident, the overall pattern points to a sustained upward trend beginning in late 2023 and continuing through much of 2024. The consistency between raw counts and normalized rates strengthens confidence in this finding and indicates that changes in reported subway crime reflect more than shifts in passenger volume alone.</p>
+<p>From a broader perspective, these findings highlight the importance of using rate-based measures when evaluating transit safety. Analyses that rely exclusively on raw counts risk conflating changes in ridership with changes in risk experienced by individual riders. By focusing on crime per trip, this study provides a clearer lens through which system-wide safety conditions can be assessed over time.</p>
+<p>Future work could extend this analysis by incorporating spatial information to examine station-level or borough-level variation in subway crime trends. Additional disaggregation by crime type or time of day may help identify specific drivers of the observed increase. Finally, integrating external contextual data—such as staffing levels, service changes, or socioeconomic indicators—could support more rigorous evaluation of policy interventions aimed at improving subway safety and reducing crime risk for riders.</p>
 
 
 </section>
